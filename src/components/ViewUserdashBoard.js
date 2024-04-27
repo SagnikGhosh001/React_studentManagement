@@ -1,10 +1,16 @@
-import { Button, Card, CardBody, CardFooter, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row, Table, UncontrolledDropdown } from "reactstrap";
-import React, { useContext, useEffect, useState } from 'react'
+import { Card, CardBody, Container, DropdownItem, DropdownMenu, DropdownToggle, Table, UncontrolledDropdown } from "reactstrap";
+import React, { useContext, useEffect } from 'react'
 import userContext from "../context/userContext";
-import { getUser } from "../services/user-service";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 function ViewUserdashBoard({user}) {
+    useEffect(()=>{
+        if(object.user.data.id!==user[0].id){
+            navigate("/")
+            toast.error("Use 'Register Candidates' for checking other details")
+        }
+    })
     const object = useContext(userContext)
     
     let navigate = useNavigate()
@@ -19,7 +25,7 @@ function ViewUserdashBoard({user}) {
 
                 <h3 className="text-uppercase">User details:-</h3>
                 <Container className="text-center">
-                    <img style={{ maxWidth: '150px', maxHeight: '150px' }} src="https://www.redditstatic.com/avatars/avatar_default_07_4856A3.png" alt="user profile picture" className="img-fluid rounded-circle" />
+                    <image style={{ maxWidth: '150px', maxHeight: '150px' }} src="https://www.redditstatic.com/avatars/avatar_default_07_4856A3.png" alt="user profile picture" className="img-fluid rounded-circle" />
                     <Table bordered hover responsive >
                         <tbody>
                             <tr>
@@ -95,7 +101,7 @@ function ViewUserdashBoard({user}) {
                     </Table>
                     {/* object.user.data.role=="student" ?(<NavLink to={`/user/updatestudent/${object.user.data.id}`}><Button color="warning" outline>Update Profile</Button></NavLink>):'' */}
                     {
-                        object.user.data.role == "student" ? (
+                        object.user.data.role === "student" ? (
                             <UncontrolledDropdown
                                 className="me-2"
                                 direction="end"

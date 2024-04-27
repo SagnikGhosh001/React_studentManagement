@@ -16,12 +16,14 @@ import { NavLink as ReactLink, useNavigate } from 'react-router-dom';
 import { doLogout, getCurrentUserDetail, isLoggedIn } from '../auth';
 import userContext from "../context/userContext";
 
+
 function CustomNavbar() {
   const object = useContext(userContext);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState(undefined);
+
 
   useEffect(() => {
     setLogin(isLoggedIn());
@@ -74,7 +76,7 @@ function CustomNavbar() {
           {login ? (
             <>
               <NavItem>
-                <NavLink tag={ReactLink} to={`/user/dashboard/${user.id}`}>{user.userName}</NavLink>
+                <NavLink tag={ReactLink} to={`/user/dashboard/${user.id}`}>{object.user.data.userName}</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink onClick={logout} style={{ cursor: 'pointer' }}>Logout</NavLink>
