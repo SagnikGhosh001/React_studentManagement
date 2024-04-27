@@ -60,7 +60,7 @@ function AddCourse() {
                         <Card style={{ backgroundColor: '#f0f0f0', fontWeight: 'bold' }}>
                             <CardHeader>
 
-                                <h3><u><i>Fill Information to Update !!</i></u></h3>
+                                <h3><u><i>ADD COURSE!!</i></u></h3>
                             </CardHeader>
                             <CardBody>
 
@@ -92,7 +92,7 @@ function AddCourse() {
                                     </FormGroup>
 
                                     <Container className="text-center">
-                                        <Button outline color="primary">Update</Button>
+                                        <Button outline color="primary">ADD</Button>
                                         <Button outline color="danger" className="ms-2" type="reset" onClick={resetData}>Reset</Button>
                                     </Container>
                                 </Form>

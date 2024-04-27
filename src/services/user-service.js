@@ -11,7 +11,7 @@ export const loginUser = async (loginDetail) => {
 }
 
 export const getUser = async (id) => {
-    return await privateAxios.get(`/student/StudentbyId/${id}`).then((resp) => resp.data)
+    return await privateAxios.get(`/student/StudentbyId/${id}`).then((resp) =>  resp.data)
 }
 
 export const getAlluser = async () => {

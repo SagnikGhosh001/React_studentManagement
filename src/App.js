@@ -38,7 +38,7 @@ function App() {
         
 
         <Route path='/user' element={<Privateroute />}>
-          <Route path='dashboard' element={<UserDashboard/>} />
+          <Route path='dashboard/:id' element={<UserDashboard/>} />
           <Route path='regcandidate' element={<RegCandidate />} />
           <Route path='courses' element={<Courses />} />
           <Route path='updatestudent/:id' element={<UpdateStudent />} />

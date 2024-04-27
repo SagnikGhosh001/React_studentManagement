@@ -74,7 +74,7 @@ function CustomNavbar() {
           {login ? (
             <>
               <NavItem>
-                <NavLink tag={ReactLink} to="/user/dashboard">{user.userName}</NavLink>
+                <NavLink tag={ReactLink} to={`/user/dashboard/${user.id}`}>{user.userName}</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink onClick={logout} style={{ cursor: 'pointer' }}>Logout</NavLink>

@@ -69,7 +69,7 @@ function UpdateUserName() {
         updateUserUsername(id, { ...data }).then((resp) => {
             console.log(resp);
             console.log("sucsess log");
-            toast.success("post updated!!")
+            toast.success("User Name updated!!")
             setData(
                 {
                     userName: '',

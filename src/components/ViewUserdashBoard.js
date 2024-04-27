@@ -2,12 +2,17 @@ import { Button, Card, CardBody, CardFooter, Col, Container, DropdownItem, Dropd
 import React, { useContext, useEffect, useState } from 'react'
 import userContext from "../context/userContext";
 import { getUser } from "../services/user-service";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-function ViewUserdashBoard() {
+function ViewUserdashBoard({user}) {
     const object = useContext(userContext)
+    
     let navigate = useNavigate()
-
+    console.log(user);
+    if (!user) {
+        // If user is null or undefined, return a message or placeholder
+        return <div>No user data available</div>;
+    }
     return (
         <Card>
             <CardBody>
@@ -22,7 +27,7 @@ function ViewUserdashBoard() {
                                     USERID:-
                                 </td>
                                 <td>
-                                    {object.user.data.id}
+                                    {user[0].id}
                                 </td>
                             </tr>
                         </tbody>
@@ -32,7 +37,7 @@ function ViewUserdashBoard() {
                                     USER NAME:-
                                 </td>
                                 <td>
-                                    {object.user.data.userName}
+                                    {user[0].userName}
                                 </td>
                             </tr>
                         </tbody>
@@ -43,7 +48,7 @@ function ViewUserdashBoard() {
                                     ROLE:-
                                 </td>
                                 <td>
-                                    {object.user.data.role}
+                                    {user[0].role}
                                 </td>
                             </tr>
                         </tbody>
@@ -53,7 +58,7 @@ function ViewUserdashBoard() {
                                     NAME:-
                                 </td>
                                 <td>
-                                    {object.user.data.name}
+                                    {user[0].name}
                                 </td>
                             </tr>
                         </tbody>
@@ -63,7 +68,7 @@ function ViewUserdashBoard() {
                                     EMAIL:-
                                 </td>
                                 <td>
-                                    {object.user.data.email}
+                                    {user[0].email}
                                 </td>
                             </tr>
                         </tbody>
@@ -73,7 +78,7 @@ function ViewUserdashBoard() {
                                     PHONE NUMBER:-
                                 </td>
                                 <td>
-                                    {object.user.data.phoneNo}
+                                    {user[0].phoneNo}
                                 </td>
                             </tr>
                         </tbody>
@@ -83,7 +88,7 @@ function ViewUserdashBoard() {
                                     GENDER:-
                                 </td>
                                 <td>
-                                    {object.user.data.gender}
+                                    {user[0].gender}
                                 </td>
                             </tr>
                         </tbody>
@@ -143,7 +148,7 @@ function ViewUserdashBoard() {
                                             Username
                                         </NavLink>
 
-                                        
+
 
                                     </DropdownItem>
                                     <DropdownItem
@@ -161,7 +166,7 @@ function ViewUserdashBoard() {
                                             textDecoration: 'none',
                                         }}
                                             to={`/user/updatepassword/${object.user.data.id}`}>
-                                            Password</NavLink> 
+                                            Password</NavLink>
                                     </DropdownItem>
 
                                 </DropdownMenu>

@@ -28,8 +28,7 @@ function UpdateCourse() {
         setData(
             {
                 title: '',
-
-                link: "",
+                link: '',
 
 
             }
@@ -51,8 +50,7 @@ function UpdateCourse() {
             setData(
                 {
                     title: '',
-
-                    link: "",
+                    link: '',
 
                 }
             )
@@ -81,7 +79,7 @@ function UpdateCourse() {
                                         <Input
                                             type="text"
                                             id="title"
-                                            placeholder="Enter title"
+                                            placeholder={data}
                                             required="required"
                                             onChange={(e) => handleChange(e, 'title')}
                                             value={data.title}
