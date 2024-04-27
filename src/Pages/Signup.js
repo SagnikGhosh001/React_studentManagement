@@ -10,7 +10,7 @@ const Signup = () => {
     const [data, setData] = useState({
         name: '',
         email: '',
-        phonenumber: '',
+        phoneNo: '',
         gender: '',
         userName: '',
         password: '',
@@ -144,7 +144,7 @@ const Signup = () => {
                                             placeholder="Enter your Phone Number"
                                             required="required"
                                             onChange={(e) => handleChange(e, 'phoneNo')}
-                                            value={data.studentPhoneNo}
+                                            value={data.phoneNo}
                                             invalid={error.errors?.response?.data?.phoneNo ? true : false}
                                         />
                                     </FormGroup>

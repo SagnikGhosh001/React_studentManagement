@@ -12,7 +12,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap';
-import { NavLink as ReactLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink as ReactLink, useNavigate } from 'react-router-dom';
 import { doLogout, getCurrentUserDetail, isLoggedIn } from '../auth';
 import userContext from "../context/userContext";
 
@@ -66,9 +66,9 @@ function CustomNavbar() {
               <DropdownItem>Contact us</DropdownItem>
               <DropdownItem>Help</DropdownItem>
               <DropdownItem divider />
-              <DropdownItem>Facebook</DropdownItem>
-              <DropdownItem>Instagram</DropdownItem>
-              <DropdownItem>LinkedIn</DropdownItem>
+              <DropdownItem><Link to="https://www.facebook.com/sagnik.ghosh.31337" style={{ cursor: 'pointer', textDecoration:"none", color:"black"}}>Facebook</Link></DropdownItem>
+              <DropdownItem><Link to="https://www.instagram.com/sagnik_ghosh_01?igsh=MWk4NGdnOGl3YmxpeQ==" style={{ cursor: 'pointer', textDecoration:"none", color:"black"}}>Instagram</Link></DropdownItem>
+              <DropdownItem><Link to="https://www.linkedin.com/in/sagnik-ghosh-445b86303/" style={{ cursor: 'pointer', textDecoration:"none", color:"black"}}>Linkedin</Link></DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>

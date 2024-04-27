@@ -8,12 +8,14 @@ import { Col, Row } from 'reactstrap'
 function AdminDashboard() {
     const [admin, setAdmin] = useState(null)
     const { id } = useParams()
+    console.log(id);
     useEffect(() => {
         if (id) {
             getAdmin(id)
                 .then(data => {
                     console.log("Admin data:", data);
                     setAdmin({ ...data });
+
                 })
                 .catch(error => {
                     console.error("Error fetching user data:", error);
@@ -33,7 +35,7 @@ function AdminDashboard() {
 
         <Base>
             <div>
-                {admin ? userView() : "loading user data..."}
+                {admin ? userView() : "loading admin data..."}
 
             </div>
         </Base>
