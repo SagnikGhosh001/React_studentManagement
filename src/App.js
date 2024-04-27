@@ -23,6 +23,8 @@ import UpdateUserName from './Pages/user-routes/UpdateUserName';
 import UpdatePassword from './Pages/user-routes/UpdatePassword';
 import UpdateCourse from './Pages/UpdateCourse';
 import AddCourse from './Pages/AddCourse';
+import AdminDashboard from './Pages/user-routes/AdminDashboard';
+
 
 
 function App() {
@@ -39,6 +41,7 @@ function App() {
 
         <Route path='/user' element={<Privateroute />}>
           <Route path='dashboard/:id' element={<UserDashboard/>} />
+          <Route path='admindashboard/:id' element={<AdminDashboard/>} />
           <Route path='regcandidate' element={<RegCandidate />} />
           <Route path='courses' element={<Courses />} />
           <Route path='updatestudent/:id' element={<UpdateStudent />} />

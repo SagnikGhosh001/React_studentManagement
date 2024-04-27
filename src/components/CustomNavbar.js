@@ -75,12 +75,29 @@ function CustomNavbar() {
         <Nav navbar>
           {login ? (
             <>
-              <NavItem>
-                <NavLink tag={ReactLink} to={`/user/dashboard/${user.id}`}>{object.user.data.userName}</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink onClick={logout} style={{ cursor: 'pointer' }}>Logout</NavLink>
-              </NavItem>
+              {
+                object.user.data.role === "admin" ? (
+                  <>
+                      <NavItem>
+                      <NavLink tag={ReactLink} to={`/user/admindashboard/${user.id}`}>{object.user.data.userName}</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink onClick={logout} style={{ cursor: 'pointer' }}>Logout</NavLink>
+                    </NavItem>
+                  </>
+                ) : (
+                  <>
+                    <NavItem>
+                      <NavLink tag={ReactLink} to={`/user/dashboard/${user.id}`}>{object.user.data.userName}</NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink onClick={logout} style={{ cursor: 'pointer' }}>Logout</NavLink>
+                    </NavItem>
+                  </>
+                )
+
+              }
+
             </>
           ) : (
             <>

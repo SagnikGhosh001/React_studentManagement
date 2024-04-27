@@ -15,10 +15,6 @@ function ViewUserdashBoard({user}) {
     
     let navigate = useNavigate()
     console.log(user);
-    if (!user) {
-        // If user is null or undefined, return a message or placeholder
-        return <div>No user data available</div>;
-    }
     return (
         <Card>
             <CardBody>
