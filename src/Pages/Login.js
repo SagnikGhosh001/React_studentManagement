@@ -92,7 +92,7 @@ const Login = () => {
         <Base>
             <Container>
                 <Row className="mt-4">
-                    <div style={{ margin: "auto", width: "50%" }}>
+                    <div style={{ margin: "auto", width: "50%" }} sm={{ size: 6, offset: 3 }}>
                         <Card style={{ backgroundColor: '#f5fffa', fontWeight: 'bold' }}>
                             <CardHeader>
                                 <h3><u><i>Fill Information to Login !!</i></u></h3>

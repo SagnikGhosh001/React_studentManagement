@@ -79,7 +79,7 @@ function UpdateCourse() {
                                         <Input
                                             type="text"
                                             id="title"
-                                            placeholder={data}
+                                            placeholder="Enter Title"
                                             required="required"
                                             onChange={(e) => handleChange(e, 'title')}
                                             value={data.title}
