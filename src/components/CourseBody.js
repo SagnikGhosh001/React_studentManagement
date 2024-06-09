@@ -46,11 +46,9 @@ function CourseBody({ course = { id: "This is default Course id", title: "This i
       className='mt-2'
     >
       <CardBody>
+
         <CardText>
-          <h1><i>ID:- </i>{course.id}</h1>
-        </CardText>
-        <CardText>
-          <h3><i>Title:-</i>{course.title}</h3>
+          <h1><i>Title:-</i>{course.title}</h1>
         </CardText>
         <CardText>
           <h4>{course.link}</h4>

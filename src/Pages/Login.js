@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { doLogin } from "../auth";
 import { useNavigate } from "react-router-dom";
 import userContext from "../context/userContext";
+import backgroundImg from "../resource/login.jpg";
+
 
 const Login = () => {
     const userContextData = useContext(userContext);
@@ -90,10 +92,24 @@ const Login = () => {
 
     return (
         <Base>
+        <div
+            style={{
+                backgroundImage: `url(${backgroundImg})`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: '#fff',
+            }}
+        
+        >
             <Container>
                 <Row className="mt-4">
                     <div style={{ margin: "auto", width: "50%" }} sm={{ size: 6, offset: 3 }}>
-                        <Card style={{ backgroundColor: '#f5fffa', fontWeight: 'bold' }}>
+                        <Card style={{ backgroundColor: 'rgba(240, 240, 240, 0.3)', fontWeight: 'bold' }}>
                             <CardHeader>
                                 <h3><u><i>Fill Information to Login !!</i></u></h3>
                             </CardHeader>
@@ -101,7 +117,7 @@ const Login = () => {
                                 <Form onSubmit={submitForm}>
                                     {/* User Name field */}
                                     <FormGroup>
-                                        <Label for="userName">User Name:</Label>
+                                        <Label for="userName" style={{ fontSize: '1.25rem' }}>User Name:</Label>
                                         <Input
                                             type="text"
                                             id="userName"
@@ -112,11 +128,12 @@ const Login = () => {
                                             style={inputStyle} // Add inline style for hover effect
                                             onFocus={() => setInputFocus(true)} // Focus effect
                                             onBlur={() => setInputFocus(false)} // Focus effect
+                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                         />
                                     </FormGroup>
                                     {/* Password field */}
                                     <FormGroup>
-                                        <Label for="password">Password:</Label>
+                                        <Label for="password" style={{ fontSize: '1.25rem' }}>Password:</Label>
                                         <Input
                                             type="password"
                                             placeholder="Enter your password"
@@ -127,40 +144,42 @@ const Login = () => {
                                             style={inputStyle} // Add inline style for hover effect
                                             onFocus={() => setInputFocus(true)} // Focus effect
                                             onBlur={() => setInputFocus(false)} // Focus effect
+                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                         />
                                     </FormGroup>
                                     {/* Role field */}
                                     <FormGroup>
-                                        <Label for="role">Role:</Label>
+                                        <Label for="role" style={{ fontSize: '1.25rem' }}>Role:</Label>
                                         <Input
                                             type="radio"
                                             name="role"
                                             required="required"
                                             id="student"
-                                            className="ms-2"
+                                            className="ms-2 mt-2"
                                             value="student"
                                             checked={loginDetail.role === 'student'}
                                             onChange={(e) => handleRoleGenderChange(e, 'role')}
                                             style={inputStyle} // Add inline style for hover effect
+
                                         />
-                                        <Label for="student" className="ms-1">Student</Label>
+                                        <Label for="student" className="ms-1" >Student</Label>
                                         <Input
                                             type="radio"
                                             name="role"
                                             required="required"
                                             id="admin"
-                                            className="ms-2"
+                                            className="ms-2 mt-2"
                                             value="admin"
                                             checked={loginDetail.role === 'admin'}
                                             onChange={(e) => handleRoleGenderChange(e, 'role')}
                                             style={inputStyle} // Add inline style for hover effect
                                         />
-                                        <Label for="admin" className="ms-1">Admin</Label>
+                                        <Label for="admin" className="ms-1 ">Admin</Label>
                                     </FormGroup>
                                     <Container className="text-center">
                                         <Button 
                                             outline 
-                                            color="primary" 
+                                            color="dark" 
                                             style={submitButtonStyle} // Add inline style for submit button hover effect
                                         >
                                             Log in
@@ -168,7 +187,7 @@ const Login = () => {
                                         <Button 
                                             outline 
                                             onClick={handleReset} 
-                                            color="danger" 
+                                            color="dark" 
                                             className="ms-2" 
                                             type="reset"
                                             style={resetButtonStyle} // Add inline style for reset button hover effect
@@ -182,6 +201,7 @@ const Login = () => {
                     </div>
                 </Row>
             </Container>
+            </div>
         </Base>
     );
 };

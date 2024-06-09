@@ -4,6 +4,7 @@ import Base from '../../components/Base'
 import { getUser, updateUser } from '../../services/user-service'
 import userContext from '../../context/userContext'
 import { toast } from "react-toastify";
+import backgroundImg from "../user-routes/resource1/updateprofile3.jpg";
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
 const UpdateStudent = () => {
 
@@ -103,10 +104,24 @@ const UpdateStudent = () => {
   }
   const updateHtml = () => {
     return (
+      <div
+      style={{
+          backgroundImage: `url(${backgroundImg})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          color: '#fff',
+      }}
+  
+  >
       <Container >
         <Row className="mt-4">
           <Col sm={{ size: 6, offset: 3 }}>
-            <Card style={{ backgroundColor: '#f0f0f0', fontWeight: 'bold' }}>
+            <Card style={{backgroundColor: 'rgba(255, 255, 255, 0.3)', fontWeight: 'bold' }}>
               <CardHeader>
 
                 <h3><u><i>Fill Information to Update !!</i></u></h3>
@@ -116,7 +131,7 @@ const UpdateStudent = () => {
                 <Form onSubmit={update}>
                   {/*Name field */}
                   <FormGroup>
-                    <Label for="name">Name:</Label>
+                    <Label for="name" style={{ fontSize: '1.25rem' }}>Name:</Label>
                     <Input
                       type="text"
                       id="name"
@@ -125,12 +140,13 @@ const UpdateStudent = () => {
                       onChange={(e) => handleChange(e, 'name')}
                       value={data.name}
                       invalid={error.errors?.response?.data?.name ? true : false}
+                      style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                     />
                   </FormGroup>
                   <FormFeedback>{error.errors?.response?.data?.name}</FormFeedback>
                   {/*gender field */}
                   <FormGroup>
-                    <Label for="gender">Gender:</Label>
+                    <Label for="gender" style={{ fontSize: '1.25rem' }}>Gender:</Label>
                     <input type="radio"
                       name="gender"
                       required="required"
@@ -165,17 +181,20 @@ const UpdateStudent = () => {
         </Row>
 
       </Container>
+      </div>
     )
   }
   return (
 
 
     <Base>
+    <div>
       <Row>
         <Col>
-          <div>{data && updateHtml()}</div>
+          <div >{data && updateHtml()}</div>
         </Col>
       </Row>
+      </div>
     </Base>
   )
 }

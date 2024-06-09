@@ -5,6 +5,7 @@ import Base from '../../components/Base'
 import { getUser, updateUser, updateUserUsername } from '../../services/user-service'
 import userContext from '../../context/userContext'
 import { toast } from "react-toastify";
+import backgroundImg from "../user-routes/resource1/updateprofile2.jpg";
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
 function UpdateUserName() {
     const { id } = useParams()
@@ -89,10 +90,25 @@ function UpdateUserName() {
     }
     const updateHtml = () => {
         return (
+            <div
+            style={{
+                backgroundImage: `url(${backgroundImg})`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: '#fff',
+            }}
+            >
+
+            
             <Container >
                 <Row className="mt-4">
                     <Col sm={{ size: 6, offset: 3 }}>
-                        <Card style={{ backgroundColor: '#f0f0f0', fontWeight: 'bold' }}>
+                        <Card style={{backgroundColor: 'rgba(255, 255, 255, 0.3)', fontWeight: 'bold' }}>
                             <CardHeader>
 
                                 <h3><u><i>Fill Information to Update !!</i></u></h3>
@@ -102,7 +118,7 @@ function UpdateUserName() {
                                 <Form onSubmit={update}>
                                     {/* User Name field */}
                                     <FormGroup>
-                                        <Label for="userName">User Name:</Label>
+                                        <Label for="userName" style={{ fontSize: '1.25rem' }}>User Name:</Label>
                                         <Input
                                             type="text"
                                             id="userName"
@@ -110,6 +126,7 @@ function UpdateUserName() {
                                             required="required"
                                             onChange={(e) => handleChange(e, 'userName')}
                                             value={data.userName}
+                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                         />
                                     </FormGroup>
 
@@ -125,6 +142,8 @@ function UpdateUserName() {
                 </Row>
 
             </Container>
+
+            </div>
         )
     }
     return (

@@ -5,6 +5,7 @@ import Base from '../../components/Base'
 import { getUser, updateUser, updateUserPasswordr } from '../../services/user-service'
 import userContext from '../../context/userContext'
 import { toast } from "react-toastify";
+import backgroundImg from "../user-routes/resource1/updateprofile1.jpg";
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
 function UpdatePassword() {
     const { id } = useParams()
@@ -89,10 +90,23 @@ function UpdatePassword() {
     }
     const updateHtml = () => {
         return (
+            <div
+            style={{
+                backgroundImage: `url(${backgroundImg})`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: '#fff',
+            }}
+            >
             <Container >
                 <Row className="mt-4">
                     <Col sm={{ size: 6, offset: 3 }}>
-                        <Card style={{ backgroundColor: '#f0f0f0', fontWeight: 'bold' }}>
+                        <Card style={{backgroundColor: 'rgba(255, 255, 255, 0.3)',fontWeight: 'bold' }}>
                             <CardHeader>
 
                                 <h3><u><i>Fill Information to Update !!</i></u></h3>
@@ -102,7 +116,7 @@ function UpdatePassword() {
                                 <Form onSubmit={update}>
                                     {/* Password field */}
                                     <FormGroup>
-                                        <Label for="password">Password:</Label>
+                                        <Label for="password" style={{ fontSize: '1.25rem' }}>Password:</Label>
                                         <Input
                                             type="password"
                                             placeholder="Enter your password"
@@ -110,7 +124,8 @@ function UpdatePassword() {
                                             id="password"
                                             onChange={(e) => handleChange(e, 'password')}
                                             value={data.password}
-                                            // invalid={error.errors?.response?.data?.password ? true : false}
+                                            // invalid={error.errors?.response?.data?.password ? true : false}'
+                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                         />
                                     </FormGroup>
                                     <FormFeedback>{error.errors?.response?.data?.password}</FormFeedback>
@@ -126,6 +141,7 @@ function UpdatePassword() {
                 </Row>
 
             </Container>
+            </div>
         )
     }
   return (

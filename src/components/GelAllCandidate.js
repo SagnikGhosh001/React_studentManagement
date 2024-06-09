@@ -1,34 +1,42 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import { getAlluser } from "../services/user-service";
 import { Col, Row } from "reactstrap";
 import GetAllCandidateBody from "./GetAllCandidateBody";
-const GetAllCandidate=()=>{
-    const[user,setUser]=useState(null);
-    useEffect(()=>{
-        getAlluser().then((data)=>{
-            setUser(data);
-        }).catch(error=>{
-            console.error(error);
-        })
-    },[])
-    return(
-            <div className="container-fluid text-center">
-                <Row >
-                    <Col md={
-                        {
-                            size:10,
-                            offset:1
-                        }
-                    }>
-                        <h1><u><i>Total Register User {user?.length}</i></u></h1>
-                        {
-                            user?.map((user)=>(
-                                <GetAllCandidateBody user={user}/>
-                            ))
-                        }
+
+const GetAllCandidate = () => {
+    const [users, setUsers] = useState(null);
+
+    useEffect(() => {
+        getAlluser()
+            .then((data) => {
+                setUsers(data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
+
+    return (
+        <div style={{backgroundColor:'#1BFFFF'}}>
+            
+            <h1>
+                <u>
+                   <div className="container-fluid text-center"><i>Total Register Users {users?.length}</i></div> 
+                </u>
+            </h1>
+            <container>
+            <Row>
+            
+                {users?.map((user) => (
+                    <Col key={user.id} md={4} className="mb-4">
+                        <GetAllCandidateBody user={user} />
                     </Col>
-                </Row>
-            </div>
-    )
-}
-export default GetAllCandidate
+                ))}
+                
+            </Row>
+            </container>
+        </div>
+    );
+};
+
+export default GetAllCandidate;

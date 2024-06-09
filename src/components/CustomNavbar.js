@@ -53,9 +53,12 @@ function CustomNavbar() {
               <NavItem>
                 <NavLink tag={ReactLink} to="/user/courses">Courses</NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink tag={ReactLink} to="/user/regcandidate">Register Candidates</NavLink>
-              </NavItem>
+              {
+                object.user.data.role === "admin" ? (<NavItem>
+                  <NavLink tag={ReactLink} to="/user/regcandidate">Register Candidates</NavLink>
+                </NavItem>) : ''
+              }
+
             </>
           )}
           <UncontrolledDropdown nav inNavbar>
@@ -66,9 +69,9 @@ function CustomNavbar() {
               <DropdownItem>Contact us</DropdownItem>
               <DropdownItem>Help</DropdownItem>
               <DropdownItem divider />
-              <DropdownItem><Link to="https://www.facebook.com/sagnik.ghosh.31337" style={{ cursor: 'pointer', textDecoration:"none", color:"black"}}>Facebook</Link></DropdownItem>
-              <DropdownItem><Link to="https://www.instagram.com/sagnik_ghosh_01?igsh=MWk4NGdnOGl3YmxpeQ==" style={{ cursor: 'pointer', textDecoration:"none", color:"black"}}>Instagram</Link></DropdownItem>
-              <DropdownItem><Link to="https://www.linkedin.com/in/sagnik-ghosh-445b86303/" style={{ cursor: 'pointer', textDecoration:"none", color:"black"}}>Linkedin</Link></DropdownItem>
+              <DropdownItem><Link to="https://www.facebook.com/sagnik.ghosh.31337" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Facebook</Link></DropdownItem>
+              <DropdownItem><Link to="https://www.instagram.com/sagnik_ghosh_01?igsh=MWk4NGdnOGl3YmxpeQ==" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Instagram</Link></DropdownItem>
+              <DropdownItem><Link to="https://www.linkedin.com/in/sagnik-ghosh-445b86303/" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Linkedin</Link></DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>
@@ -78,7 +81,7 @@ function CustomNavbar() {
               {
                 object.user.data.role === "admin" ? (
                   <>
-                      <NavItem>
+                    <NavItem>
                       <NavLink tag={ReactLink} to={`/user/admindashboard/${user.id}`}>{object.user.data.userName}</NavLink>
                     </NavItem>
                     <NavItem>

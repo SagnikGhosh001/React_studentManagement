@@ -21,7 +21,7 @@ function GetAllCourses() {
     }, []);
 
     return (
-        <div style={{ padding: '20px' }}>
+        <div style={{ padding: '20px' }} >
             <Row>
                 <Col md={{ size: 10, offset: 1 }}>
                     <h1><i style={{ fontFamily: 'Arial, sans-serif',color:'darkblue', fontWeight:'bold' }}>Course Count {courseContent?.length}</i></h1>
