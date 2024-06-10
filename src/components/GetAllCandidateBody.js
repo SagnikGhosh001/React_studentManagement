@@ -46,7 +46,7 @@ function GetAllCandidateBody({ user }) {
                     <MDBCol md="4" className="gradient-custom text-center text-black"
                         style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem', backgroundColor: '#C71585' }}>
                         <MDBCardImage
-                            src={user.gender === "female" ? "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" : "https://cdn.iconscout.com/icon/premium/png-256-thumb/black-man-2888342-2399431.png?f=webp"}
+                            src={user.gender === "female" ? "https://www.svgrepo.com/show/382097/female-avatar-girl-face-woman-user-9.svg" : "https://www.svgrepo.com/show/382101/male-avatar-boy-face-man-user.svg"}
                             alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />
                         <MDBTypography tag="h5" className="mb-0">{user.userName}</MDBTypography>
                         <MDBCardText className="mb-5">{user.role}</MDBCardText>

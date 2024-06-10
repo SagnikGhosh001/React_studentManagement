@@ -55,7 +55,7 @@ function ViewAdminDashBoard({ admin }) {
                                 <MDBCol md="4" className="gradient-custom text-center text-white"
                                     style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem', backgroundColor: 'darkblue' }}>
                                     <MDBCardImage
-                                        src={admin[0].gender === "female" ? "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" : "https://cdn.iconscout.com/icon/premium/png-256-thumb/black-man-2888342-2399431.png?f=webp"}
+                                        src={admin[0].gender === "female" ? "https://www.svgrepo.com/show/382097/female-avatar-girl-face-woman-user-9.svg" : "https://www.svgrepo.com/show/382101/male-avatar-boy-face-man-user.svg"}
                                         alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />
                                     <MDBTypography tag="h5">{admin[0].userName}</MDBTypography>
                                     <MDBCardText>{admin[0].role}</MDBCardText>
