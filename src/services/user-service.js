@@ -19,7 +19,9 @@ export const getAlluser = async () => {
         return Response.data
     })
 }
-
+export const deleteUserService=async(id,role)=>{
+    return await privateAxios.delete(`/student/DeleteStudent/${id}/${role}`).then((resp)=>resp.data)
+}
 export const updateUser = async (id, user) => {
     return await privateAxios.put(`/student/UpdateStudents/${id}`, user).then((response) => response.data)
 }

@@ -4,6 +4,7 @@ import { addCourseService } from '../services/CourseService'
 import userContext from '../context/userContext'
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
 import { toast } from 'react-toastify';
+import backgroundImg from "../resource/updateprofile1.jpg";
 function AddCourse() {
     const object=useContext(userContext)
     const [data, setData] = useState({
@@ -54,10 +55,23 @@ function AddCourse() {
 
     return (
         <Base>
+        <div
+        style={{
+            backgroundImage: `url(${backgroundImg})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: '#fff',
+        }}
+        >
             <Container >
                 <Row className="mt-4">
                     <Col sm={{ size: 6, offset: 3 }}>
-                        <Card style={{ backgroundColor: '#f0f0f0', fontWeight: 'bold' }}>
+                        <Card style={{backgroundColor: 'rgba(255, 255, 255, 0.3)', fontWeight: 'bold' }}>
                             <CardHeader>
 
                                 <h3><u><i>ADD COURSE!!</i></u></h3>
@@ -75,7 +89,7 @@ function AddCourse() {
                                             required="required"
                                             onChange={(e) => handleChange(e, 'title')}
                                             value={data.title}
-
+                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                         />
                                     </FormGroup>
                                     <FormGroup>
@@ -87,7 +101,7 @@ function AddCourse() {
                                             required="required"
                                             onChange={(e) => handleChange(e, 'link')}
                                             value={data.link}
-
+                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                         />
                                     </FormGroup>
 
@@ -102,6 +116,7 @@ function AddCourse() {
                 </Row>
 
             </Container>
+            </div>
         </Base>
     )
 }

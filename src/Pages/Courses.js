@@ -2,12 +2,23 @@ import React from 'react';
 import Base from '../components/Base';
 import GetAllCourses from '../components/GetAllCourses.';
 import { Container } from 'reactstrap';
-import backgroundImg from "../resource/Home.jpg";
+import backgroundImg from "../resource/courseback.jpg";
 
 const Courses = () => {
     return (
         <Base>
-            <div style={{ backgroundColor: '#1BFFFF', minHeight: '100vh' }}>
+            <div style={{
+                backgroundImage: `url(${backgroundImg})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                
+                padding: '20px',
+                color: 'white' // Ensure text is readable
+            }}>
                 <Container>
                     <GetAllCourses />
                 </Container>

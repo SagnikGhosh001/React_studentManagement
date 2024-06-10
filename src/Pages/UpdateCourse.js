@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import userContext from '../context/userContext'
 import { toast } from 'react-toastify'
 import { Card, CardHeader, Col, Container, Form, FormGroup, Label, Row, CardBody ,Input,Button } from 'reactstrap'
-
+import backgroundImg from "../resource/updateprofile1.jpg";
 function UpdateCourse() {
     const object = useContext(userContext)
     const { id } = useParams()
@@ -62,10 +62,23 @@ function UpdateCourse() {
     }
     const updateHtml = () => {
         return (
+            <div
+            style={{
+                backgroundImage: `url(${backgroundImg})`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: '#fff',
+            }}
+            >
             <Container >
                 <Row className="mt-4">
                     <Col sm={{ size: 6, offset: 3 }}>
-                        <Card style={{ backgroundColor: '#f0f0f0', fontWeight: 'bold' }}>
+                        <Card style={{backgroundColor: 'rgba(255, 255, 255, 0.3)', fontWeight: 'bold' }}>
                             <CardHeader>
 
                                 <h3><u><i>Fill Information to Update !!</i></u></h3>
@@ -75,7 +88,7 @@ function UpdateCourse() {
                                 <Form onSubmit={update}>
                                     {/*Name field */}
                                     <FormGroup>
-                                        <Label for="name">Title:</Label>
+                                        <Label for="name" style={{ fontSize: '1.25rem' }}>Title:</Label>
                                         <Input
                                             type="text"
                                             id="title"
@@ -83,11 +96,11 @@ function UpdateCourse() {
                                             required="required"
                                             onChange={(e) => handleChange(e, 'title')}
                                             value={data.title}
-                                            
+                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                         />
                                     </FormGroup>
                                     <FormGroup>
-                                        <Label for="link">Link:</Label>
+                                        <Label for="link" style={{ fontSize: '1.25rem' }}>Link:</Label>
                                         <Input
                                             type="text"
                                             id="link"
@@ -95,7 +108,7 @@ function UpdateCourse() {
                                             required="required"
                                             onChange={(e) => handleChange(e, 'link')}
                                             value={data.link}
-                                            
+                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                         />
                                     </FormGroup>
                                     
@@ -110,6 +123,7 @@ function UpdateCourse() {
                 </Row>
 
             </Container>
+            </div>
         )
     }
     return (

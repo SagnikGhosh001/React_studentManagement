@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAlluser } from "../services/user-service";
-import { Col, Row } from "reactstrap";
+import { Col, Row, Container } from "reactstrap";
 import GetAllCandidateBody from "./GetAllCandidateBody";
 
 const GetAllCandidate = () => {
@@ -17,24 +17,31 @@ const GetAllCandidate = () => {
     }, []);
 
     return (
-        <div style={{backgroundColor:'#1BFFFF'}}>
+        <div style={{
+            backgroundColor: 'skyblue',
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
             
-            <h1>
-                <u>
-                   <div className="container-fluid text-center"><i>Total Register Users {users?.length}</i></div> 
-                </u>
-            </h1>
-            <container>
-            <Row>
-            
-                {users?.map((user) => (
-                    <Col key={user.id} md={4} className="mb-4">
-                        <GetAllCandidateBody user={user} />
-                    </Col>
-                ))}
-                
-            </Row>
-            </container>
+            alignItems: 'center',
+            padding: '20px'
+        }}>
+            <Container className="text-center">
+                <h1>
+                    <u>
+                        <i>Total Registered Users {users?.length}</i>
+                    </u>
+                </h1>
+            </Container>
+            <Container>
+                <Row>
+                    {users?.map((user) => (
+                        <Col key={user.id} md={4} className="mb-4">
+                            <GetAllCandidateBody user={user} />
+                        </Col>
+                    ))}
+                </Row>
+            </Container>
         </div>
     );
 };

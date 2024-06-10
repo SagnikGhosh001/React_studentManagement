@@ -27,6 +27,7 @@ function CourseBody({ course = { id: "This is default Course id", title: "This i
   const buttonStyle = {
     marginRight: '10px',
     transition: 'background-color 0.3s ease-in-out, color 0.3s ease-in-out',
+    color:'white'
   };
   function handleDeleteCourse(){
     console.log(course);

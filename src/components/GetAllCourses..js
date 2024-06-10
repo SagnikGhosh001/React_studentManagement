@@ -24,10 +24,10 @@ function GetAllCourses() {
         <div style={{ padding: '20px' }} >
             <Row>
                 <Col md={{ size: 10, offset: 1 }}>
-                    <h1><i style={{ fontFamily: 'Arial, sans-serif',color:'darkblue', fontWeight:'bold' }}>Course Count {courseContent?.length}</i></h1>
+                    <h1><i style={{ fontFamily: 'Arial, sans-serif',color:'darkblue', fontWeight:'bold',color: 'white' }}>Course Count {courseContent?.length}</i></h1>
                     {object.user.data.role === "admin" && (
                         <>
-                            <Link to="/user/addcourse" ><Button color='success'size="lg" outline className='mb-3'>Add Course</Button></Link>
+                            <Link to="/user/addcourse" ><Button color='light'size="lg" outline className='mb-3'>Add Course</Button></Link>
                             
                         </>
                     )}

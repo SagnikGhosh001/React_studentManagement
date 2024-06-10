@@ -1,4 +1,5 @@
 import CustomNavbar from "./CustomNavbar"
+import Footer from "./Footer";
 
 
 const Base = ({ title = "Welcome to our websites", children }) => {
@@ -6,6 +7,7 @@ const Base = ({ title = "Welcome to our websites", children }) => {
         <div className="container-fuild">
             <CustomNavbar />
             {children}
+            {/* <Footer/> */}
         </div>
     )
 }

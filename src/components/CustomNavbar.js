@@ -15,8 +15,16 @@ import {
 import { Link, NavLink as ReactLink, useNavigate } from 'react-router-dom';
 import { doLogout, getCurrentUserDetail, isLoggedIn } from '../auth';
 import userContext from "../context/userContext";
+import Stack from '@mui/material/Stack';
+import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 
-
+function HomeIcon(props: SvgIconProps) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
 function CustomNavbar() {
   const object = useContext(userContext);
   const navigate = useNavigate();
@@ -45,6 +53,9 @@ function CustomNavbar() {
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="me-auto" navbar>
+          {/* <NavItem>
+            <NavLink tag={ReactLink} to="/about"><HomeIcon /></NavLink>
+          </NavItem> */}
           <NavItem>
             <NavLink tag={ReactLink} to="/about">About</NavLink>
           </NavItem>
@@ -66,7 +77,7 @@ function CustomNavbar() {
               More
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem>Contact us</DropdownItem>
+              <DropdownItem tag={ReactLink} to="/contactus">Contact us</DropdownItem>
               <DropdownItem>Help</DropdownItem>
               <DropdownItem divider />
               <DropdownItem><Link to="https://www.facebook.com/sagnik.ghosh.31337" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Facebook</Link></DropdownItem>

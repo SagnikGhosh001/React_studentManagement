@@ -24,6 +24,7 @@ import UpdatePassword from './Pages/user-routes/UpdatePassword';
 import UpdateCourse from './Pages/UpdateCourse';
 import AddCourse from './Pages/AddCourse';
 import AdminDashboard from './Pages/user-routes/AdminDashboard';
+import ContactUs from './Pages/ContactUs';
 
 
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contactus" element={<ContactUs />} />
         
 
         <Route path='/user' element={<Privateroute />}>
