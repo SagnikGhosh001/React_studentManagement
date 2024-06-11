@@ -103,7 +103,7 @@ function UpdateUserName() {
                                                 placeholder="Enter your User Name"
                                                 required="required"
                                                 onChange={(e) => handleChange(e, 'userName')}
-                                                defaultValue={data[0]?.userName || ''}
+                                                defaultValue={data?.userName || ''}
                                                 style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                             />
                                         </FormGroup>

@@ -140,7 +140,7 @@ const UpdateStudent = () => {
                       placeholder="Enter your Name"
                       required="required"
                       onChange={(e) => handleChange(e, 'name')}
-                      defaultValue={data[0]?.name}
+                      value={data.name}
                       
                       invalid={error.errors?.response?.data?.name ? true : false}
                       style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
