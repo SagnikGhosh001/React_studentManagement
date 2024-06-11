@@ -4,7 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Base from '../../components/Base'
 import { getUser, updateUser, updateUserPasswordr } from '../../services/user-service'
 import userContext from '../../context/userContext'
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import backgroundImg from "../user-routes/resource1/updateprofile1.jpg";
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
 function UpdatePassword() {
@@ -71,12 +72,14 @@ function UpdatePassword() {
             console.log(resp);
             console.log("sucsess log");
             toast.success("Passsword updated!!")
+            
             setData(
                 {
                     userName: '',
 
                 }
             )
+            navigate(`/user/dashboard/${id}`)
         }).catch((error) => {
             console.log(error);
             console.log("Error log");
@@ -109,7 +112,7 @@ function UpdatePassword() {
                         <Card style={{backgroundColor: 'rgba(255, 255, 255, 0.3)',fontWeight: 'bold' }}>
                             <CardHeader>
 
-                                <h3><u><i>Fill Information to Update !!</i></u></h3>
+                                <h3><u><i><center>Update Password</center></i></u></h3>
                             </CardHeader>
                             <CardBody>
 

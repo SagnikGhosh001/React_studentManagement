@@ -1,22 +1,32 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Base from '../components/Base'
 import { courseById, updateCourseService } from '../services/CourseService'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import userContext from '../context/userContext'
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Card, CardHeader, Col, Container, Form, FormGroup, Label, Row, CardBody ,Input,Button } from 'reactstrap'
 import backgroundImg from "../resource/updateprofile1.jpg";
 function UpdateCourse() {
     const object = useContext(userContext)
     const { id } = useParams()
     const [data, setData] = useState(null)
+    const navigate=useNavigate()
     useEffect(() => {
-        courseById(id).then(data => {
-            console.log(data);
-            setData({ ...data })
-        }).catch(error => {
-            console.error(error);
-        })
+        if(object.user.data.role=="admin"){
+            courseById(id).then(data => {
+                console.log(data);
+                setData({ ...data })
+            }).catch(error => {
+                console.error(error);
+            })
+        }else{
+            toast.error("you are not an admin")
+            navigate("/")
+
+        }
+        
     }, [])
     const handleChange = (event, propertie) => {
         //dynamic setting value
@@ -43,6 +53,7 @@ function UpdateCourse() {
         //data validate
 
         //call server api for sending data
+        if(object.user.data.role=="admin"){
         updateCourseService(id, object.user.data.role, { ...data }).then((resp) => {
             console.log(resp);
             console.log("sucsess log");
@@ -54,10 +65,15 @@ function UpdateCourse() {
 
                 }
             )
+            navigate("/user/courses")
         }).catch((error) => {
             console.log(error);
             console.log("Error log");
         })
+    }else{
+        toast.error("you are not an admin")
+            navigate("/")
+    }
             ;
     }
     const updateHtml = () => {
@@ -81,7 +97,7 @@ function UpdateCourse() {
                         <Card style={{backgroundColor: 'rgba(255, 255, 255, 0.3)', fontWeight: 'bold' }}>
                             <CardHeader>
 
-                                <h3><u><i>Fill Information to Update !!</i></u></h3>
+                                <h1><u><i><center>Update</center></i></u></h1>
                             </CardHeader>
                             <CardBody>
 

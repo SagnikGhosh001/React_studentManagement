@@ -1,6 +1,6 @@
 import React from 'react';
 import Base from '../components/Base';
-import GetAllCourses from '../components/GetAllCourses.';
+import GetAllCourses from '../components/GetAllCourses';
 import { Container } from 'reactstrap';
 import backgroundImg from "../resource/courseback.jpg";
 
@@ -17,9 +17,10 @@ const Courses = () => {
                 alignItems: 'center',
                 
                 padding: '20px',
-                color: 'white' // Ensure text is readable
+                color: 'white' 
             }}>
                 <Container>
+                    
                     <GetAllCourses />
                 </Container>
             </div>

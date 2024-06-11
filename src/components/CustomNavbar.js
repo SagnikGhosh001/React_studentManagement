@@ -53,14 +53,15 @@ function CustomNavbar() {
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="me-auto" navbar>
-          {/* <NavItem>
-            <NavLink tag={ReactLink} to="/about"><HomeIcon /></NavLink>
-          </NavItem> */}
+
           <NavItem>
             <NavLink tag={ReactLink} to="/about">About</NavLink>
           </NavItem>
           {login && (
             <>
+              <NavItem>
+                <NavLink tag={ReactLink} to="/user/features">Features</NavLink>
+              </NavItem>
               <NavItem>
                 <NavLink tag={ReactLink} to="/user/courses">Courses</NavLink>
               </NavItem>
@@ -78,7 +79,8 @@ function CustomNavbar() {
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem tag={ReactLink} to="/contactus">Contact us</DropdownItem>
-              <DropdownItem>Help</DropdownItem>
+              {login &&(<DropdownItem tag={ReactLink} to="/user/feedback">FeedBack</DropdownItem>)}
+              
               <DropdownItem divider />
               <DropdownItem><Link to="https://www.facebook.com/sagnik.ghosh.31337" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Facebook</Link></DropdownItem>
               <DropdownItem><Link to="https://www.instagram.com/sagnik_ghosh_01?igsh=MWk4NGdnOGl3YmxpeQ==" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Instagram</Link></DropdownItem>
@@ -87,6 +89,7 @@ function CustomNavbar() {
           </UncontrolledDropdown>
         </Nav>
         <Nav navbar>
+
           {login ? (
             <>
               {
@@ -123,8 +126,11 @@ function CustomNavbar() {
               </NavItem>
             </>
           )}
+
         </Nav>
+
       </Collapse>
+
     </Navbar>
   );
 }

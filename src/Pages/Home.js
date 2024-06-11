@@ -1,10 +1,10 @@
-// Import necessary dependencies
+
 import React from 'react';
 import Base from "../components/Base";
 import backgroundImg from "../resource/Home.jpg";
 import "../styles/home.css";
 import { Link, useNavigate } from 'react-router-dom';
-// Define the functional component for the Home page
+
 const Home = () => {
   
   return (

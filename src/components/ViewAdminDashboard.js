@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import userContext from "../context/userContext";
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
 import backgroundImg from "../resource/userDashboard3.jpg";
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { useNavigate } from 'react-router-dom';
 
 function ViewAdminDashBoard({ admin }) {

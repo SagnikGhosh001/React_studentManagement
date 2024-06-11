@@ -25,6 +25,8 @@ import UpdateCourse from './Pages/UpdateCourse';
 import AddCourse from './Pages/AddCourse';
 import AdminDashboard from './Pages/user-routes/AdminDashboard';
 import ContactUs from './Pages/ContactUs';
+import Features from './Pages/Features';
+import Feedback from './Pages/Feedback';
 
 
 
@@ -38,7 +40,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contactus" element={<ContactUs />} />
+        <Route path="/contactus" element={<ContactUs />}/> 
+        
         
 
         <Route path='/user' element={<Privateroute />}>
@@ -51,6 +54,8 @@ function App() {
           <Route path='updatepassword/:id' element={<UpdatePassword />} />
           <Route path='updatecourse/:id' element={<UpdateCourse />} />
           <Route path='addcourse' element={<AddCourse />} />
+          <Route path='features' element={<Features />}/> 
+          <Route path='feedback' element={<Feedback />}/> 
         </Route>
       </Routes>
 

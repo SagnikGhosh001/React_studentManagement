@@ -14,8 +14,8 @@ export const getUser = async (id) => {
     return await privateAxios.get(`/student/StudentbyId/${id}`).then((resp) =>  resp.data)
 }
 
-export const getAlluser = async () => {
-    return await privateAxios.get("/student/AllStudents").then((Response) => {
+export const getAlluser = async (role) => {
+    return await privateAxios.get(`/student/AllStudents/${role}`).then((Response) => {
         return Response.data
     })
 }

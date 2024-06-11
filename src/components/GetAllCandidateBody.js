@@ -6,6 +6,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteUserService } from '../services/user-service';
 import userContext from "../context/userContext";
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function GetAllCandidateBody({ user }) {
     const object = useContext(userContext);
     const [isHovered, setIsHovered] = useState(false);

@@ -2,7 +2,8 @@ import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback,
 import Base from "../components/Base";
 import { useState } from "react";
 import { signUp } from "../services/user-service";
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import backgroundImg from "../resource/reg.jpg";
 
 const Signup = () => {
@@ -105,7 +106,7 @@ const Signup = () => {
                         <Col sm={{ size: 6, offset: 3 }}>
                             <Card style={{ backgroundColor: 'rgba(240, 240, 240, 0.3)', fontWeight: 'bold' }}>
                                 <CardHeader>
-                                    <h3><u><i>Fill Information to Register !!</i></u></h3>
+                                    <h1><u><i><center>Register Here</center></i></u></h1>
                                 </CardHeader>
                                 <CardBody>
                                     <Form onSubmit={submitForm}>

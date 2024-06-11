@@ -4,9 +4,13 @@ import { addCourseService } from '../services/CourseService'
 import userContext from '../context/userContext'
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import backgroundImg from "../resource/updateprofile1.jpg";
+import { useNavigate } from 'react-router-dom';
 function AddCourse() {
     const object=useContext(userContext)
+    const navigate = useNavigate()
     const [data, setData] = useState({
         title: '',
         link: '',
@@ -34,6 +38,7 @@ function AddCourse() {
         //data validate
 
         //call server api for sending data
+        if(data,object.user.data.role=="admin"){
         addCourseService(data,object.user.data.role).then((resp) => {
             console.log(resp);
             console.log("sucsess log");
@@ -44,12 +49,18 @@ function AddCourse() {
                     link: '',
                 }
             )
+            navigate("/user/courses")
         }).catch((error) => {
             console.log(error);
             console.log("Error log");
             //error handle
             
         })
+    }
+    else{
+        toast.error("You are not an admin")
+        navigate("/")
+    }
             ;
     }
 
@@ -74,7 +85,7 @@ function AddCourse() {
                         <Card style={{backgroundColor: 'rgba(255, 255, 255, 0.3)', fontWeight: 'bold' }}>
                             <CardHeader>
 
-                                <h3><u><i>ADD COURSE!!</i></u></h3>
+                                <h1><u><i><center>Add</center></i></u></h1>
                             </CardHeader>
                             <CardBody>
 

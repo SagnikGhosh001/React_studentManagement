@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import userContext from "../context/userContext";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
 import backgroundImg from "../resource/userDashboard3.jpg";
 import { Card, CardBody, Container, DropdownItem, DropdownMenu, DropdownToggle, Table, UncontrolledDropdown } from "reactstrap";
@@ -123,7 +125,7 @@ function ViewUserDashBoard({ user }) {
                                                                 display: 'inline-block',
                                                                 padding: '10px 20px',
                                                                 borderRadius: '20px',
-                                                                backgroundColor: '#007bff', // You can change the color as needed
+                                                                backgroundColor: '#007bff',
                                                                 color: '#fff',
                                                                 textDecoration: 'none',
                                                             }}
@@ -142,7 +144,7 @@ function ViewUserDashBoard({ user }) {
                                                                 display: 'inline-block',
                                                                 padding: '10px 20px',
                                                                 borderRadius: '20px',
-                                                                backgroundColor: '#007bff', // You can change the color as needed
+                                                                backgroundColor: '#007bff', 
                                                                 color: '#fff',
                                                                 textDecoration: 'none',
                                                             }}
@@ -163,7 +165,7 @@ function ViewUserDashBoard({ user }) {
                                                                 display: 'inline-block',
                                                                 padding: '10px 20px',
                                                                 borderRadius: '20px',
-                                                                backgroundColor: '#007bff', // You can change the color as needed
+                                                                backgroundColor: '#007bff', 
                                                                 color: '#fff',
                                                                 textDecoration: 'none',
                                                             }}

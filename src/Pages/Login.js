@@ -2,7 +2,8 @@ import { Button, Card, CardBody, CardHeader, Container, Form, FormGroup, Input, 
 import Base from "../components/Base";
 import { useContext, useState, useEffect } from "react"; // Import useEffect
 import { loginUser } from "../services/user-service";
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { doLogin } from "../auth";
 import { useNavigate } from "react-router-dom";
 import userContext from "../context/userContext";
@@ -73,7 +74,7 @@ const Login = () => {
                     login: true,
                 });
                 //redirect to course
-                navigate("/user/courses");
+                navigate("/user/features");
             });
             toast.success("Login Success");
         }).catch(error => {
@@ -111,7 +112,7 @@ const Login = () => {
                     <div style={{ margin: "auto", width: "50%" }} sm={{ size: 6, offset: 3 }}>
                         <Card style={{ backgroundColor: 'rgba(240, 240, 240, 0.3)', fontWeight: 'bold' }}>
                             <CardHeader>
-                                <h3><u><i>Fill Information to Login !!</i></u></h3>
+                            <h1><u><i><center>Login</center></i></u></h1>
                             </CardHeader>
                             <CardBody>
                                 <Form onSubmit={submitForm}>
@@ -125,9 +126,9 @@ const Login = () => {
                                             required="required"
                                             onChange={(e) => handleChange(e, 'userName')}
                                             value={loginDetail.userName}
-                                            style={inputStyle} // Add inline style for hover effect
-                                            onFocus={() => setInputFocus(true)} // Focus effect
-                                            onBlur={() => setInputFocus(false)} // Focus effect
+                                            style={inputStyle} 
+                                            onFocus={() => setInputFocus(true)} 
+                                            onBlur={() => setInputFocus(false)} 
                                             style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                         />
                                     </FormGroup>
@@ -159,7 +160,7 @@ const Login = () => {
                                             value="student"
                                             checked={loginDetail.role === 'student'}
                                             onChange={(e) => handleRoleGenderChange(e, 'role')}
-                                            style={inputStyle} // Add inline style for hover effect
+                                            style={inputStyle} 
 
                                         />
                                         <Label for="student" className="ms-1" >Student</Label>
@@ -172,7 +173,7 @@ const Login = () => {
                                             value="admin"
                                             checked={loginDetail.role === 'admin'}
                                             onChange={(e) => handleRoleGenderChange(e, 'role')}
-                                            style={inputStyle} // Add inline style for hover effect
+                                            style={inputStyle} 
                                         />
                                         <Label for="admin" className="ms-1 ">Admin</Label>
                                     </FormGroup>
@@ -180,7 +181,7 @@ const Login = () => {
                                         <Button 
                                             outline 
                                             color="dark" 
-                                            style={submitButtonStyle} // Add inline style for submit button hover effect
+                                            style={submitButtonStyle} 
                                         >
                                             Log in
                                         </Button>
@@ -190,7 +191,7 @@ const Login = () => {
                                             color="dark" 
                                             className="ms-2" 
                                             type="reset"
-                                            style={resetButtonStyle} // Add inline style for reset button hover effect
+                                            style={resetButtonStyle} 
                                         >
                                             Reset
                                         </Button>
@@ -206,7 +207,7 @@ const Login = () => {
     );
 };
 
-// Define inline style for hover effect on input fields
+
 const inputStyle = {
     transition: "border-color 0.3s ease",
     borderColor: "#ced4da",
