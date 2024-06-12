@@ -1,17 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import userContext from "../context/userContext";
-import { Button, Card, CardBody, CardFooter, CardText, Form, InputGroup } from 'reactstrap';
+import { Button, Card, CardBody, CardFooter, CardText } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import backgroundImg from '../resource/course.jpg'; // Import background image
+import backgroundImg from '../resource/course.jpg';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { deleteCourseService } from '../services/CourseService';
+import CourseBodySkeleton from '../components/CourseBodySkeleton';
 
 function CourseBody({ course = { id: "This is default Course id", title: "This is default Course title", link: "This is default Course link" } }) {
-  const [search, setSearch] = useState('');
+
   const object = useContext(userContext);
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
   const cardStyle = {
     border: 'none',
@@ -19,10 +27,10 @@ function CourseBody({ course = { id: "This is default Course id", title: "This i
     marginBottom: '20px',
     fontFamily: 'Arial, sans-serif',
     color: 'white',
-    backgroundImage: `url(${backgroundImg})`, // Background image
+    backgroundColor: 'transparent',
     backgroundSize: 'cover',
     transition: 'transform 0.3s ease-in-out',
-    transform: isHovered ? 'scale(1.05)' : 'scale(1)', // Apply transform based on hover state
+    transform: isHovered ? 'scale(1.05)' : 'scale(1)',
   };
 
   const buttonStyle = {
@@ -62,43 +70,47 @@ function CourseBody({ course = { id: "This is default Course id", title: "This i
       onMouseLeave={() => setIsHovered(false)}
       className='mt-2'
     >
-      <CardBody>
-        <CardText>
-          <h1><i>Title:-</i>{course.title}</h1>
-        </CardText>
-        <CardText>
-          <h4>{course.link}</h4>
-        </CardText>
-        <CardFooter>
-          <Button
-            color='primary'
-            outline
-            style={buttonStyle}
-            onClick={(e) => {
-              e.preventDefault();
-              handleDownload(course.link);
-            }}
-          >
-            Download
-          </Button>
-          {object.user.data.role === "admin" && (
-            <>
-              <Button
-                className='ms-4'
-                color='danger'
-                outline
-                style={buttonStyle}
-                onClick={handleDeleteCourse}
-              >
-                Delete Course
-              </Button>
-              <Link to={`/user/updatecourse/${course.id}`}>
-                <Button color='warning' outline className='ms-5'>Update Course</Button>
-              </Link>
-            </>
-          )}
-        </CardFooter>
-      </CardBody>
+      {isLoading ? (
+        <CourseBodySkeleton />
+      ) : (
+        <CardBody>
+          <CardText>
+            <h1><i>Title:-</i>{course.title}</h1>
+          </CardText>
+          <CardText>
+            <h4>{course.link}</h4>
+          </CardText>
+          <CardFooter>
+            <Button
+              color='primary'
+              outline
+              style={buttonStyle}
+              onClick={(e) => {
+                e.preventDefault();
+                handleDownload(course.link);
+              }}
+            >
+              Download
+            </Button>
+            {object.user.data.role === "admin" && (
+              <>
+                <Button
+                  className='ms-4'
+                  color='danger'
+                  outline
+                  style={buttonStyle}
+                  onClick={handleDeleteCourse}
+                >
+                  Delete Course
+                </Button>
+                <Link to={`/user/updatecourse/${course.id}`}>
+                  <Button color='warning' outline className='ms-5'>Update Course</Button>
+                </Link>
+              </>
+            )}
+          </CardFooter>
+        </CardBody>
+      )}
     </Card>
   );
 }
