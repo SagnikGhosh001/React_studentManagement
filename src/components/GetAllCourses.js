@@ -1,18 +1,19 @@
+// GetAllCourses.js
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Col, Form, Input, InputGroup, Row, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CourseBody from './CourseBody';
 import userContext from '../context/userContext';
-import { loadAllCourse } from '../services/CourseService';
-
+import { loadAllCourse, deleteCourseService } from '../services/CourseService'; // Update import to include deleteCourseService
+import { toast } from 'react-toastify';
 function GetAllCourses() {
     const [search, setSearch] = useState('');
     const object = useContext(userContext);
     const [courseContent, setCourseContent] = useState(null);
-    const [loading, setLoading] = useState(true); // Step 1: Introduce loading state
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
-        setLoading(true); // Set loading to true when fetching data starts
+        setLoading(true); 
         loadAllCourse()
             .then((data) => {
                 console.log(data);
@@ -22,9 +23,21 @@ function GetAllCourses() {
                 console.error("Error occurred:", error);
             })
             .finally(() => {
-                setLoading(false); // Set loading to false when data fetching completes
+                setLoading(false); 
             });
     }, []);
+
+    const handleDeleteCourse = (courseId) => {
+        deleteCourseService(courseId, object.user.data.role)
+            .then(() => {
+                
+                setCourseContent(prevCourses => prevCourses.filter(course => course.id !== courseId)); // Remove deleted course from state
+            })
+            .catch(error => {
+                console.error(error);
+                toast.error("Error deleting course");
+            });
+    };
 
     return (
         <div style={{ padding: '20px' }}>
@@ -45,13 +58,13 @@ function GetAllCourses() {
                                 style={{
                                     borderRadius: '20px',
                                     padding: '10px',
-                                    width: '100%', 
-                                    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', 
+                                    width: '100%',
+                                    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
                                 }}
                             />
                         </InputGroup>
                     </Form>
-                    {loading ? ( // Step 2: Display spinner conditionally based on loading state
+                    {loading ? (
                         <div className="text-center my-5">
                             <Spinner color="primary" />
                             <p>Loading courses...</p>
@@ -60,7 +73,7 @@ function GetAllCourses() {
                         courseContent?.filter((course) => {
                             return search.toLowerCase() === '' ? true : course.title.toLowerCase().includes(search);
                         }).map((course) => (
-                            <CourseBody course={course} key={course.id} />
+                            <CourseBody course={course} key={course.id} onDeleteCourse={handleDeleteCourse} /> // Pass onDeleteCourse handler
                         ))
                     )}
                 </Col>

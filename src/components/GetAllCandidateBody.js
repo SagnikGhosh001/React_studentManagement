@@ -1,3 +1,4 @@
+// GetAllCandidateBody.js
 import React, { useContext, useEffect, useState } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
 import backgroundImg from "../resource/background.png";
@@ -8,7 +9,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CandidateBodySkeleton from './CandidateBodySkeleton';
 
-function GetAllCandidateBody({ user }) {
+function GetAllCandidateBody({ user, onDeleteUser }) {
     const object = useContext(userContext);
     const [isHovered, setIsHovered] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -29,12 +30,15 @@ function GetAllCandidateBody({ user }) {
 
     function handleDeleteUser() {
         console.log(user);
-        deleteUserService(user.id, object.user.data.role).then(data => {
-            toast.success("User deleted");
-        }).catch(error => {
-            console.error(error);
-            toast.error("Error deleting user");
-        });
+        deleteUserService(user.id, object.user.data.role)
+            .then(data => {
+                toast.success("User deleted");
+                onDeleteUser(user.id); // Notify parent component to remove user from state
+            })
+            .catch(error => {
+                console.error(error);
+                toast.error("Error deleting user");
+            });
     }
 
     return (

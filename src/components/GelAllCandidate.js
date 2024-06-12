@@ -1,3 +1,4 @@
+// GetAllCandidate.js
 import React, { useContext, useEffect, useState } from "react";
 import { getAlluser } from "../services/user-service";
 import { Col, Row, Container, Input, InputGroup, Form, Spinner } from "reactstrap";
@@ -15,11 +16,10 @@ const GetAllCandidate = () => {
 
     useEffect(() => {
         setLoading(true); 
-        if(object.user.data.role == "student") {
+        if(object.user.data.role === "student") {
             toast.error("You are not an admin");
-            navigate("/");
-           
-        } else if(object.user.data.role == "admin"){
+            navigate("/");   
+        } else if(object.user.data.role === "admin"){
             getAlluser(object.user.data.role)
             .then((data) => {
                 setUsers(data);
@@ -33,6 +33,10 @@ const GetAllCandidate = () => {
             });
         }
     }, [object.user.data.role, navigate]);
+
+    const handleDeleteUser = (userId) => {
+        setUsers(prevUsers => prevUsers.filter(user => user.id !== userId)); // Update users state after deletion
+    };
 
     return (
         <div style={{
@@ -75,7 +79,7 @@ const GetAllCandidate = () => {
                             search.toLowerCase() === '' ? true : user.userName.toLowerCase().includes(search)
                         ).map((user) => (
                             <Col key={user.id} md={4} className="mb-4">
-                                <GetAllCandidateBody user={user} />
+                                <GetAllCandidateBody user={user} onDeleteUser={handleDeleteUser} />
                             </Col>
                         ))}
                     </Row>
