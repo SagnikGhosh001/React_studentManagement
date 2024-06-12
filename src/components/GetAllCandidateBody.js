@@ -1,4 +1,4 @@
-// GetAllCandidateBody.js
+
 import React, { useContext, useEffect, useState } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
 import backgroundImg from "../resource/background.png";

@@ -1,4 +1,4 @@
-// GetAllCandidate.js
+
 import React, { useContext, useEffect, useState } from "react";
 import { getAlluser } from "../services/user-service";
 import { Col, Row, Container, Input, InputGroup, Form, Spinner } from "reactstrap";
