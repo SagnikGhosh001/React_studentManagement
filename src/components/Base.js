@@ -7,7 +7,7 @@ const Base = ({ title = "Welcome to our websites", children }) => {
         <div className="container-fuild">
             <CustomNavbar />
             {children}
-            {/* <Footer/> */}
+            <Footer/>
         </div>
     )
 }
