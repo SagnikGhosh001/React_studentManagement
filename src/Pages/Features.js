@@ -105,7 +105,7 @@ function Features() {
                 backgroundImage: `url(${backgroundImg})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                height: '100vh',
+                minHeight: '100vh',
                 display: 'flex',
                 flexDirection: 'column',
                 color: '#fff',

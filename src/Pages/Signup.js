@@ -99,7 +99,7 @@ const Signup = () => {
                     backgroundImage: `url(${backgroundImg})`,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
-                    height: '100vh',
+                    minHeight: '100vh',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
