@@ -1,4 +1,3 @@
-// CourseBody.js
 import React, { useContext, useEffect, useState } from 'react';
 import userContext from "../context/userContext";
 import { Button, Card, CardBody, CardFooter, CardText } from 'reactstrap';
@@ -13,6 +12,7 @@ function CourseBody({ course, onDeleteCourse }) {
     const navigate = useNavigate();
     const [isHovered, setIsHovered] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [deleting, setDeleting] = useState(false); 
 
     useEffect(() => {
         setTimeout(() => {
@@ -39,23 +39,24 @@ function CourseBody({ course, onDeleteCourse }) {
     };
 
     const handleDownload = (url) => {
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = true;
-        link.click();
+        window.open(url, '_blank');
     };
 
     const handleDeleteCourse = () => {
         if (course.id && object.user.data.role) {
+            setDeleting(true); 
             deleteCourseService(course.id, object.user.data.role)
                 .then(data => {
                     toast.success("Course deleted");
-                    onDeleteCourse(course.id); // Notify parent component to remove course from state
+                    onDeleteCourse(course.id);
                     navigate("/user/courses");
                 })
                 .catch(error => {
                     console.error(error);
                     toast.error("Error deleting course");
+                })
+                .finally(() => {
+                    setDeleting(false); 
                 });
         } else {
             toast.error("You are not an admin");
@@ -65,7 +66,11 @@ function CourseBody({ course, onDeleteCourse }) {
 
     return (
         <Card
-            style={cardStyle}
+            style={{
+                ...cardStyle,
+                filter: deleting ? 'blur(1px)' : 'none', 
+                opacity: deleting ? 0.5 : 1,
+            }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className='mt-2'
@@ -100,8 +105,9 @@ function CourseBody({ course, onDeleteCourse }) {
                                     outline
                                     style={buttonStyle}
                                     onClick={handleDeleteCourse}
+                                    disabled={deleting}
                                 >
-                                    Delete Course
+                                    {deleting ? 'Deleting...' : 'Delete Course'}
                                 </Button>
                                 <Link to={`/user/updatecourse/${course.id}`}>
                                     <Button color='warning' outline className='ms-5'>Update Course</Button>

@@ -5,9 +5,9 @@ import { getUser, updateUserUsername } from '../../services/user-service';
 import userContext from '../../context/userContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import backgroundImg from "../user-routes/resource1/updateprofile2.jpg";
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
+import Spinner from 'react-bootstrap/Spinner';
 
 function UpdateUserName() {
     const { id } = useParams();
@@ -15,18 +15,24 @@ function UpdateUserName() {
     const navigate = useNavigate();
 
     const [data, setData] = useState(null);
-    useEffect(() => {
-        getUser(id).then(userData => {
-            setData({ ...userData });
-        }).catch(error => {
-            console.error(error);
-        });
-    }, [id]);
-
+    const [loading, setLoading] = useState(true); // State to manage loading state
+    const [updating, setUpdating] = useState(false); // State to manage update process
     const [error, setError] = useState({
         errors: {},
         isError: false
     });
+
+    useEffect(() => {
+        getUser(id)
+            .then(userData => {
+                setData({ ...userData });
+                setLoading(false); // Set loading to false once data is fetched
+            })
+            .catch(error => {
+                console.error(error);
+                setLoading(false); // Ensure loading state is set to false in case of error
+            });
+    }, [id]);
 
     const handleChange = (event, property) => {
         setData({ ...data, [property]: event.target.value });
@@ -42,33 +48,42 @@ function UpdateUserName() {
     const update = (event) => {
         event.preventDefault();
 
+        // Start updating process
+        setUpdating(true);
+
         if (error.isError) {
             toast.error("Already data exist in server...");
             setError({ ...error, isError: false });
+            setUpdating(false); // Stop updating process due to error
             return;
         }
 
-        updateUserUsername(id, { ...data }).then((resp) => {
-            toast.success("User Name updated!!");
-            setData({
-                ...data,
-                userName: ''
+        updateUserUsername(id, { ...data })
+            .then((resp) => {
+                toast.success("User Name updated!!");
+                setData({
+                    ...data,
+                    userName: ''
+                });
+                // Update user context here
+                object.setUser({
+                    ...object.user,
+                    data: {
+                        ...object.user.data,
+                        userName: data.userName // Update the username
+                    }
+                });
+                navigate(`/user/dashboard/${id}`);
+            })
+            .catch((error) => {
+                setError({
+                    errors: error,
+                    isError: true
+                });
+            })
+            .finally(() => {
+                setUpdating(false); // Stop updating process after API call completes
             });
-            // Update user context here
-            object.setUser({
-                ...object.user,
-                data: {
-                    ...object.user.data,
-                    userName: data.userName // Update the username
-                }
-            });
-            navigate(`/user/dashboard/${id}`);
-        }).catch((error) => {
-            setError({
-                errors: error,
-                isError: true
-            });
-        });
     };
 
     const updateHtml = () => {
@@ -109,8 +124,16 @@ function UpdateUserName() {
                                         </FormGroup>
                                         <FormFeedback>{error.errors?.response?.data?.userName}</FormFeedback>
                                         <Container className="text-center">
-                                            <Button outline color="primary">Update</Button>
-                                            <Button outline color="danger" className="ms-2" type="reset" onClick={resetData}>Reset</Button>
+                                            <Button outline color="primary" disabled={updating}>
+                                                {updating ? (
+                                                    <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                                                ) : (
+                                                    'Update'
+                                                )}
+                                            </Button>
+                                            <Button outline color="danger" className="ms-2" type="reset" onClick={resetData} disabled={updating}>
+                                                Reset
+                                            </Button>
                                         </Container>
                                     </Form>
                                 </CardBody>
@@ -126,7 +149,21 @@ function UpdateUserName() {
         <Base>
             <Row>
                 <Col>
-                    <div>{data && updateHtml()}</div>
+                    {loading ? (
+                        <div style={{
+                            backgroundImage: `url(${backgroundImg})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            height: '100vh',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                            <Spinner color="primary" />
+                        </div>
+                    ) : (
+                        <div>{data && updateHtml()}</div>
+                    )}
                 </Col>
             </Row>
         </Base>

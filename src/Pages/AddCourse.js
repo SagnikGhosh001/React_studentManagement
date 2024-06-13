@@ -1,135 +1,187 @@
-import React, { useContext, useState } from 'react'
-import Base from '../components/Base'
-import { addCourseService } from '../services/CourseService'
-import userContext from '../context/userContext'
-import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
+import React, { useContext, useState, useEffect } from 'react';
+import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Row, FormFeedback } from "reactstrap";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import backgroundImg from "../resource/updateprofile1.jpg";
 import { useNavigate } from 'react-router-dom';
+import Base from '../components/Base';
+import userContext from '../context/userContext';
+import { addCourseService } from '../services/CourseService';
+import backgroundImg from "../resource/updateprofile1.jpg";
+import Spinner from 'react-bootstrap/Spinner'; // Import Spinner component
+
 function AddCourse() {
-    const object=useContext(userContext)
-    const navigate = useNavigate()
+    const object = useContext(userContext);
+    const navigate = useNavigate();
+
     const [data, setData] = useState({
         title: '',
         link: '',
+    });
 
-    })
-    //handle Change
-    const handleChange = (event, propertie) => {
-        //dynamic setting value
-        setData({ ...data, [propertie]: event.target.value })
-    }
-    //reset form
-    const resetData = () => {
-        setData(
-            {
-                title: '',
-                link: '',
-            }
-        )
-    }
-    //submit form
-    const submitForm = (event) => {
-        event.preventDefault()
+    const [validity, setValidity] = useState({
+        title: true,
+        link: true,
+    });
 
+    const [submitting, setSubmitting] = useState(false); // State to manage submission loading
+    const [loading, setLoading] = useState(true); // State to manage component loading
+
+    useEffect(() => {
         
-        //data validate
+        const timeout = setTimeout(() => {
+            setLoading(false);
+        }, 1000); 
 
-        //call server api for sending data
-        if(data,object.user.data.role=="admin"){
-        addCourseService(data,object.user.data.role).then((resp) => {
-            console.log(resp);
-            console.log("sucsess log");
-            toast.success("course is registered successfully !!")
-            setData(
-                {
-                    title: '',
-                    link: '',
-                }
-            )
-            navigate("/user/courses")
-        }).catch((error) => {
-            console.log(error);
-            console.log("Error log");
-            //error handle
-            
-        })
-    }
-    else{
-        toast.error("You are not an admin")
-        navigate("/")
-    }
-            ;
+        return () => clearTimeout(timeout);
+    }, []);
+
+    const handleChange = (event, property) => {
+        setData({ ...data, [property]: event.target.value });
+    };
+
+    const resetData = () => {
+        setData({
+            title: '',
+            link: '',
+        });
+        setValidity({
+            title: true,
+            link: true,
+        });
+    };
+
+    const validateForm = () => {
+        let isValid = true;
+        const updatedValidity = { ...validity };
+
+        if (data.title.trim() === '') {
+            updatedValidity.title = false;
+            isValid = false;
+        } else {
+            updatedValidity.title = true;
+        }
+
+        if (data.link.trim() === '') {
+            updatedValidity.link = false;
+            isValid = false;
+        } else {
+            updatedValidity.link = true;
+        }
+
+        setValidity(updatedValidity);
+        return isValid;
+    };
+
+    const submitForm = (event) => {
+        event.preventDefault();
+
+        if (validateForm()) {
+            if (object.user.data.role === "admin") {
+                setSubmitting(true); // Start submission loading
+                addCourseService(data, object.user.data.role)
+                    .then((resp) => {
+                        toast.success("Course registered successfully!!");
+                        resetData();
+                        navigate("/user/courses");
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        toast.error("Failed to add course.");
+                    })
+                    .finally(() => {
+                        setSubmitting(false); // End submission loading
+                    });
+            } else {
+                toast.error("You are not authorized to add a course.");
+                navigate("/");
+            }
+        }
+    };
+
+    if (loading) {
+        return (
+            <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        );
     }
 
     return (
         <Base>
-        <div
-        style={{
-            backgroundImage: `url(${backgroundImg})`,
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            height: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            color: '#fff',
-        }}
-        >
-            <Container >
-                <Row className="mt-4">
-                    <Col sm={{ size: 6, offset: 3 }}>
-                        <Card style={{backgroundColor: 'rgba(255, 255, 255, 0.3)', fontWeight: 'bold' }}>
-                            <CardHeader>
+            <div
+                style={{
+                    backgroundImage: `url(${backgroundImg})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    height: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    color: '#fff',
+                }}
+            >
+                <Container>
+                    <Row className="mt-4">
+                        <Col sm={{ size: 6, offset: 3 }}>
+                            <Card style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)', fontWeight: 'bold' }}>
+                                <CardHeader>
+                                    <h1><u><i><center>Add</center></i></u></h1>
+                                </CardHeader>
+                                <CardBody>
+                                    <Form onSubmit={submitForm}>
+                                        <FormGroup>
+                                            <Label for="title">Title:</Label>
+                                            <Input
+                                                type="text"
+                                                id="title"
+                                                placeholder="Enter title"
+                                                required
+                                                onChange={(e) => handleChange(e, 'title')}
+                                                value={data.title}
+                                                style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
+                                                invalid={!validity.title}
+                                            />
+                                            <FormFeedback>Title is required</FormFeedback>
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="link">Link:</Label>
+                                            <Input
+                                                type="text"
+                                                id="link"
+                                                placeholder="Enter link"
+                                                required
+                                                onChange={(e) => handleChange(e, 'link')}
+                                                value={data.link}
+                                                style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
+                                                invalid={!validity.link}
+                                            />
+                                            <FormFeedback>Link is required</FormFeedback>
+                                        </FormGroup>
 
-                                <h1><u><i><center>Add</center></i></u></h1>
-                            </CardHeader>
-                            <CardBody>
-
-                                <Form onSubmit={submitForm}>
-                                    {/*Name field */}
-                                    <FormGroup>
-                                        <Label for="name">Title:</Label>
-                                        <Input
-                                            type="text"
-                                            id="title"
-                                            placeholder="Enter title"
-                                            required="required"
-                                            onChange={(e) => handleChange(e, 'title')}
-                                            value={data.title}
-                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
-                                        />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Label for="link">Link:</Label>
-                                        <Input
-                                            type="text"
-                                            id="link"
-                                            placeholder="Enter link"
-                                            required="required"
-                                            onChange={(e) => handleChange(e, 'link')}
-                                            value={data.link}
-                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
-                                        />
-                                    </FormGroup>
-
-                                    <Container className="text-center">
-                                        <Button outline color="primary">ADD</Button>
-                                        <Button outline color="danger" className="ms-2" type="reset" onClick={resetData}>Reset</Button>
-                                    </Container>
-                                </Form>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>
-
-            </Container>
+                                        <Container className="text-center">
+                                            {submitting ? (
+                                                <Spinner animation="border" role="status">
+                                                    <span className="visually-hidden">Loading...</span>
+                                                </Spinner>
+                                            ) : (
+                                                <>
+                                                    <Button outline color="primary">ADD</Button>
+                                                    <Button outline color="danger" className="ms-2" type="reset" onClick={resetData}>Reset</Button>
+                                                </>
+                                            )}
+                                        </Container>
+                                    </Form>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         </Base>
-    )
+    );
 }
 
-export default AddCourse
+export default AddCourse;

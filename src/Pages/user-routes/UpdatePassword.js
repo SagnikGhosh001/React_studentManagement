@@ -1,162 +1,170 @@
-
-import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import Base from '../../components/Base'
-import { getUser, updateUser, updateUserPasswordr } from '../../services/user-service'
-import userContext from '../../context/userContext'
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import Base from '../../components/Base';
+import userContext from '../../context/userContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import backgroundImg from "../user-routes/resource1/updateprofile1.jpg";
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
+import { getUser, updateUserPasswordr } from '../../services/user-service';
+import Spinner from 'react-bootstrap/Spinner';
+
 function UpdatePassword() {
-    const { id } = useParams()
+    const { id } = useParams();
+    const object = useContext(userContext);
+    const navigate = useNavigate();
 
-    const object = useContext(userContext)
-    const navigate = useNavigate()
-    // console.log(object.user.data.id);
-    const [data, setData] = useState(null)
-    useEffect(() => {
-        getUser(id).then(data => {
-            console.log(data);
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true); // State to manage loading state
+    const [updating, setUpdating] = useState(false); // State to manage updating state
 
-            setData({ ...data })
-        }).catch(error => {
-            console.error(error);
-        })
-    }, [])
     useEffect(() => {
-        if (data?.id == object?.user?.data?.id) {
-            toast.error("this is not you")
-            navigate("/")
+        getUser(id)
+            .then(userData => {
+                setData({ ...userData });
+                setLoading(false); // Set loading to false once data is fetched
+            })
+            .catch(error => {
+                console.error(error);
+                setLoading(false); // Ensure loading state is set to false in case of error
+            });
+    }, [id]);
+
+    useEffect(() => {
+        if (data?.id === object?.user?.data?.id) {
+            toast.error("You are not authorized to update this password");
+            navigate("/");
         }
-    }, [data])
+    }, [data, navigate, object]);
 
     const [error, setError] = useState({
         errors: {},
         isError: false
-    })
+    });
 
+    const handleChange = (event, property) => {
+        setData({ ...data, [property]: event.target.value });
+    };
 
-
-    //handle Change
-    const handleChange = (event, propertie) => {
-        //dynamic setting value
-        setData({ ...data, [propertie]: event.target.value })
-    }
-
-    //reset form
     const resetData = () => {
-        setData(
-            {
-                password: '',
+        setData({
+            password: '',
+        });
+    };
 
-            }
-        )
-    }
-
-
-    //submit form
     const update = (event) => {
-        event.preventDefault()
+        event.preventDefault();
+
+        // Start updating process
+        setUpdating(true);
 
         if (error.isError) {
-            toast.error("Already data exist in server...");
-            setError({ ...error, isError: false })
+            toast.error("Data already exists in the server.");
+            setError({ ...error, isError: false });
+            setUpdating(false); // Stop updating process due to error
             return;
         }
-        console.log(data);
-        //data validate
 
-        //call server api for sending data
-        updateUserPasswordr(id, { ...data }).then((resp) => {
-            console.log(resp);
-            console.log("sucsess log");
-            toast.success("Passsword updated!!")
-            
-            setData(
-                {
-                    userName: '',
-
-                }
-            )
-            navigate(`/user/dashboard/${id}`)
-        }).catch((error) => {
-            console.log(error);
-            console.log("Error log");
-            //error handle
-            setError({
-                errors: error,
-                isError: true
+        updateUserPasswordr(id, { ...data })
+            .then(resp => {
+                toast.success("Password updated successfully!");
+                resetData();
+                navigate(`/user/dashboard/${id}`);
             })
-        })
-            ;
-    }
+            .catch(error => {
+                setError({
+                    errors: error,
+                    isError: true
+                });
+                console.error(error);
+            })
+            .finally(() => {
+                setUpdating(false); // Stop updating process after API call completes
+            });
+    };
+
     const updateHtml = () => {
         return (
             <div
-            style={{
-                backgroundImage: `url(${backgroundImg})`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                height: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                color: '#fff',
-            }}
+                style={{
+                    backgroundImage: `url(${backgroundImg})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    height: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    color: '#fff',
+                }}
             >
-            <Container >
-                <Row className="mt-4">
-                    <Col sm={{ size: 6, offset: 3 }}>
-                        <Card style={{backgroundColor: 'rgba(255, 255, 255, 0.3)',fontWeight: 'bold' }}>
-                            <CardHeader>
-
-                                <h3><u><i><center>Update Password</center></i></u></h3>
-                            </CardHeader>
-                            <CardBody>
-
-                                <Form onSubmit={update}>
-                                    {/* Password field */}
-                                    <FormGroup>
-                                        <Label for="password" style={{ fontSize: '1.25rem' }}>Password:</Label>
-                                        <Input
-                                            type="password"
-                                            placeholder="Enter your password"
-                                            required="required"
-                                            id="password"
-                                            onChange={(e) => handleChange(e, 'password')}
-                                            value={data.password}
-                                            // invalid={error.errors?.response?.data?.password ? true : false}'
-                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
-                                        />
-                                    </FormGroup>
-                                    <FormFeedback>{error.errors?.response?.data?.password}</FormFeedback>
-
-                                    <Container className="text-center">
-                                        <Button outline color="primary">Update</Button>
-                                        <Button outline color="danger" className="ms-2" type="reset" onClick={resetData}>Reset</Button>
-                                    </Container>
-                                </Form>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>
-
-            </Container>
+                <Container >
+                    <Row className="mt-4">
+                        <Col sm={{ size: 6, offset: 3 }}>
+                            <Card style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)', fontWeight: 'bold' }}>
+                                <CardHeader>
+                                    <h3 style={{ textAlign: 'center', textDecoration: 'underline', fontStyle: 'italic' }}>Update Password</h3>
+                                </CardHeader>
+                                <CardBody>
+                                    <Form onSubmit={update}>
+                                        <FormGroup>
+                                            <Label for="password" style={{ fontSize: '1.25rem' }}>Password:</Label>
+                                            <Input
+                                                type="password"
+                                                placeholder="Enter your password"
+                                                required
+                                                id="password"
+                                                onChange={(e) => handleChange(e, 'password')}
+                                                value={data.password || ''}
+                                                style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)', color: '#000' }}
+                                            />
+                                        </FormGroup>
+                                        <FormFeedback>{error.errors?.response?.data?.password}</FormFeedback>
+                                        <Container className="text-center">
+                                            <Button outline color="primary" disabled={updating}>
+                                                {updating ? (
+                                                    <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                                                ) : (
+                                                    'Update'
+                                                )}
+                                            </Button>
+                                            <Button outline color="danger" className="ms-2" type="reset" onClick={resetData} disabled={updating}>
+                                                Reset
+                                            </Button>
+                                        </Container>
+                                    </Form>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
-        )
-    }
-  return (
-    <Base>
-      <Row>
-        <Col>
-          <div>{data && updateHtml()}</div>
-        </Col>
-      </Row>
-    </Base>
-    
-  )
+        );
+    };
+
+    return (
+        <Base>
+            <Row>
+                <Col>
+                    {loading ? (
+                        <div style={{
+                            backgroundImage: `url(${backgroundImg})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            height: '100vh',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                            <Spinner color="primary" />
+                        </div>
+                    ) : (
+                        <div>{data && updateHtml()}</div>
+                    )}
+                </Col>
+            </Row>
+        </Base>
+    );
 }
 
-export default UpdatePassword
+export default UpdatePassword;
