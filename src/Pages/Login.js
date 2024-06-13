@@ -1,6 +1,6 @@
-import { Button, Card, CardBody, CardHeader, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
+import { Button, Card, CardBody, CardHeader, Container, Form, FormGroup, Input, Label, Row, Spinner } from "reactstrap";
 import Base from "../components/Base";
-import { useContext, useState, useEffect } from "react"; // Import useEffect
+import { useContext, useState, useEffect } from "react";
 import { loginUser } from "../services/user-service";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,29 +9,26 @@ import { useNavigate } from "react-router-dom";
 import userContext from "../context/userContext";
 import backgroundImg from "../resource/login.jpg";
 
-
 const Login = () => {
     const userContextData = useContext(userContext);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    const [clickloading, setClickloading] = useState(false); 
     const [loginDetail, setLoginDetail] = useState({
         userName: '',
         password: '',
         role: '',
     });
 
-    //handle Change
+    // Handle Change
     const handleChange = (event, property) => {
-        //dynamic setting value
         let actualValue = event.target.value;
         setLoginDetail({ ...loginDetail, [property]: actualValue });
     };
 
-    //handle gender and role
+    // Handle role
     const handleRoleGenderChange = (event, property) => {
-        // For role and gender, we need to access event.target.value directly
         const value = event.target.value;
-
-        // dynamic setting value
         setLoginDetail({ ...loginDetail, [property]: value });
     };
 
@@ -62,24 +59,24 @@ const Login = () => {
     const submitForm = (event) => {
         event.preventDefault();
         console.log(loginDetail);
-        //server submit for token
+        setClickloading(true); 
         loginUser(loginDetail).then((data) => {
             console.log(data);
-
-            //save the data to localStorage
+            setLoading(false);
+            setClickloading(false); 
             doLogin(data, () => {
-                console.log("log in detail is saved to local storage")
+                console.log("Log in detail is saved to local storage");
                 userContextData.setUser({
                     data: data.user,
                     login: true,
                 });
-                //redirect to course
                 navigate("/user/features");
             });
             toast.success("Login Success");
         }).catch(error => {
             console.error(error);
-            toast.error("Something went wrong please check your details!!");
+            setClickloading(false); 
+            toast.error("Something went wrong, please check your details!!");
         });
     };
 
@@ -93,120 +90,121 @@ const Login = () => {
 
     return (
         <Base>
-        <div
-            style={{
-                backgroundImage: `url(${backgroundImg})`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                height: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                color: '#fff',
-            }}
-        
-        >
-            <Container>
-                <Row className="mt-4">
-                    <div style={{ margin: "auto", width: "50%" }} sm={{ size: 6, offset: 3 }}>
-                        <Card style={{ backgroundColor: 'rgba(240, 240, 240, 0.3)', fontWeight: 'bold' }}>
-                            <CardHeader>
-                            <h1><u><i><center>Login</center></i></u></h1>
-                            </CardHeader>
-                            <CardBody>
-                                <Form onSubmit={submitForm}>
-                                    {/* User Name field */}
-                                    <FormGroup>
-                                        <Label for="userName" style={{ fontSize: '1.25rem' }}>User Name:</Label>
-                                        <Input
-                                            type="text"
-                                            id="userName"
-                                            placeholder="Enter your User Name"
-                                            required="required"
-                                            onChange={(e) => handleChange(e, 'userName')}
-                                            value={loginDetail.userName}
-                                            style={inputStyle} 
-                                            onFocus={() => setInputFocus(true)} 
-                                            onBlur={() => setInputFocus(false)} 
-                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
-                                        />
-                                    </FormGroup>
-                                    {/* Password field */}
-                                    <FormGroup>
-                                        <Label for="password" style={{ fontSize: '1.25rem' }}>Password:</Label>
-                                        <Input
-                                            type="password"
-                                            placeholder="Enter your password"
-                                            required="required"
-                                            id="password"
-                                            onChange={(e) => handleChange(e, 'password')}
-                                            value={loginDetail.password}
-                                            style={inputStyle} // Add inline style for hover effect
-                                            onFocus={() => setInputFocus(true)} // Focus effect
-                                            onBlur={() => setInputFocus(false)} // Focus effect
-                                            style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
-                                        />
-                                    </FormGroup>
-                                    {/* Role field */}
-                                    <FormGroup>
-                                        <Label for="role" style={{ fontSize: '1.25rem' }}>Role:</Label>
-                                        <Input
-                                            type="radio"
-                                            name="role"
-                                            required="required"
-                                            id="student"
-                                            className="ms-2 mt-2"
-                                            value="student"
-                                            checked={loginDetail.role === 'student'}
-                                            onChange={(e) => handleRoleGenderChange(e, 'role')}
-                                            style={inputStyle} 
-
-                                        />
-                                        <Label for="student" className="ms-1" >Student</Label>
-                                        <Input
-                                            type="radio"
-                                            name="role"
-                                            required="required"
-                                            id="admin"
-                                            className="ms-2 mt-2"
-                                            value="admin"
-                                            checked={loginDetail.role === 'admin'}
-                                            onChange={(e) => handleRoleGenderChange(e, 'role')}
-                                            style={inputStyle} 
-                                        />
-                                        <Label for="admin" className="ms-1 ">Admin</Label>
-                                    </FormGroup>
-                                    <Container className="text-center">
-                                        <Button 
-                                            outline 
-                                            color="dark" 
-                                            style={submitButtonStyle} 
-                                        >
-                                            Log in
-                                        </Button>
-                                        <Button 
-                                            outline 
-                                            onClick={handleReset} 
-                                            color="dark" 
-                                            className="ms-2" 
-                                            type="reset"
-                                            style={resetButtonStyle} 
-                                        >
-                                            Reset
-                                        </Button>
-                                    </Container>
-                                </Form>
-                            </CardBody>
-                        </Card>
-                    </div>
-                </Row>
-            </Container>
+            <div
+                style={{
+                    backgroundImage: `url(${backgroundImg})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    height: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    color: '#fff',
+                }}
+            >
+                <Container>
+                    <Row className="mt-4">
+                        <div style={{ margin: "auto", width: "50%" }} sm={{ size: 6, offset: 3 }}>
+                            <Card style={{ backgroundColor: 'rgba(240, 240, 240, 0.3)', fontWeight: 'bold' }}>
+                                <CardHeader>
+                                    <h1><u><i><center>Login</center></i></u></h1>
+                                </CardHeader>
+                                <CardBody>
+                                    <Form onSubmit={submitForm}>
+                                        <FormGroup>
+                                            <Label for="userName" style={{ fontSize: '1.25rem' }}>User Name:</Label>
+                                            <Input
+                                                type="text"
+                                                id="userName"
+                                                placeholder="Enter your User Name"
+                                                required="required"
+                                                onChange={(e) => handleChange(e, 'userName')}
+                                                value={loginDetail.userName}
+                                                style={inputStyle}
+                                                onFocus={() => setInputFocus(true)}
+                                                onBlur={() => setInputFocus(false)}
+                                                style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
+                                            />
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="password" style={{ fontSize: '1.25rem' }}>Password:</Label>
+                                            <Input
+                                                type="password"
+                                                placeholder="Enter your password"
+                                                required="required"
+                                                id="password"
+                                                onChange={(e) => handleChange(e, 'password')}
+                                                value={loginDetail.password}
+                                                style={inputStyle}
+                                                onFocus={() => setInputFocus(true)}
+                                                onBlur={() => setInputFocus(false)}
+                                                style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
+                                            />
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <Label for="role" style={{ fontSize: '1.25rem' }}>Role:</Label>
+                                            <Input
+                                                type="radio"
+                                                name="role"
+                                                required="required"
+                                                id="student"
+                                                className="ms-2 mt-2"
+                                                value="student"
+                                                checked={loginDetail.role === 'student'}
+                                                onChange={(e) => handleRoleGenderChange(e, 'role')}
+                                                style={inputStyle}
+                                            />
+                                            <Label for="student" className="ms-1">Student</Label>
+                                            <Input
+                                                type="radio"
+                                                name="role"
+                                                required="required"
+                                                id="admin"
+                                                className="ms-2 mt-2"
+                                                value="admin"
+                                                checked={loginDetail.role === 'admin'}
+                                                onChange={(e) => handleRoleGenderChange(e, 'role')}
+                                                style={inputStyle}
+                                            />
+                                            <Label for="admin" className="ms-1">Admin</Label>
+                                        </FormGroup>
+                                        <Container className="text-center">
+                                            {clickloading ? (
+                                                <Spinner color="primary" />
+                                            ) : (
+                                                <>
+                                                    <Button
+                                                        outline
+                                                        color="dark"
+                                                        style={submitButtonStyle}
+                                                        type="submit"
+                                                    >
+                                                        Log in
+                                                    </Button>
+                                                    <Button
+                                                        outline
+                                                        onClick={handleReset}
+                                                        color="dark"
+                                                        className="ms-2"
+                                                        type="reset"
+                                                        style={resetButtonStyle}
+                                                    >
+                                                        Reset
+                                                    </Button>
+                                                </>
+                                            )}
+                                        </Container>
+                                    </Form>
+                                </CardBody>
+                            </Card>
+                        </div>
+                    </Row>
+                </Container>
             </div>
         </Base>
     );
 };
-
 
 const inputStyle = {
     transition: "border-color 0.3s ease",

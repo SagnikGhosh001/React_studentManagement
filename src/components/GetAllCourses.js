@@ -31,7 +31,7 @@ function GetAllCourses() {
         deleteCourseService(courseId, object.user.data.role)
             .then(() => {
                 
-                setCourseContent(prevCourses => prevCourses.filter(course => course.id !== courseId)); // Remove deleted course from state
+                setCourseContent(prevCourses => prevCourses.filter(course => course.id !== courseId)); 
             })
             .catch(error => {
                 console.error(error);
@@ -73,7 +73,7 @@ function GetAllCourses() {
                         courseContent?.filter((course) => {
                             return search.toLowerCase() === '' ? true : course.title.toLowerCase().includes(search);
                         }).map((course) => (
-                            <CourseBody course={course} key={course.id} onDeleteCourse={handleDeleteCourse} /> // Pass onDeleteCourse handler
+                            <CourseBody course={course} key={course.id} onDeleteCourse={handleDeleteCourse} /> 
                         ))
                     )}
                 </Col>

@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
+import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row, Spinner } from "reactstrap";
 import Base from "../components/Base";
 import { useState } from "react";
 import { signUp } from "../services/user-service";
@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import backgroundImg from "../resource/reg.jpg";
 
 const Signup = () => {
+    const [loading, setLoading] = useState(true);
+    const [clickloading, setClickloading] = useState(false); 
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -21,7 +23,7 @@ const Signup = () => {
         errors: {},
         isError: false
     });
-
+    
     //handle Change
     const handleChange = (event, property) => {
         //dynamic setting value
@@ -53,10 +55,11 @@ const Signup = () => {
     //submit form
     const submitForm = (event) => {
         event.preventDefault();
-
+        setClickloading(true); 
         if (error.isError) {
             toast.error("Already data exist in server...");
             setError({ ...error, isError: false });
+            setClickloading(false); 
             return;
         }
         console.log(data);
@@ -65,6 +68,8 @@ const Signup = () => {
         signUp(data).then((resp) => {
             console.log(resp);
             console.log("success log");
+            setLoading(false);
+            setClickloading(false); 
             toast.success("User is registered successfully!!");
             setData({
                 name: '',
@@ -76,11 +81,12 @@ const Signup = () => {
                 role: '',
             });
         }).catch((error) => {
+            setClickloading(false); 
             console.log(error);
             console.log("Error log");
             //error handle
             setError({
-                errors: error,
+                errors: error.response.data, // Update this line
                 isError: true
             });
         });
@@ -120,10 +126,10 @@ const Signup = () => {
                                                 required="required"
                                                 onChange={(e) => handleChange(e, 'name')}
                                                 value={data.name}
-                                                invalid={error.errors?.response?.data?.name ? true : false}
+                                                invalid={error.errors?.name ? true : false}
                                                 style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                             />
-                                            <FormFeedback>{error.errors?.response?.data?.name}</FormFeedback>
+                                            <FormFeedback>{error.errors?.name}</FormFeedback>
                                         </FormGroup>
                                         {/*Email field */}
                                         <FormGroup>
@@ -135,10 +141,10 @@ const Signup = () => {
                                                 required="required"
                                                 onChange={(e) => handleChange(e, 'email')}
                                                 value={data.email}
-                                                invalid={error.errors?.response?.data?.email ? true : false}
+                                                invalid={error.errors?.email ? true : false}
                                                 style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                             />
-                                            <FormFeedback>{error.errors?.response?.data?.email}</FormFeedback>
+                                            <FormFeedback>{error.errors?.email}</FormFeedback>
                                         </FormGroup>
                                         {/*Phone field */}
                                         <FormGroup>
@@ -150,10 +156,10 @@ const Signup = () => {
                                                 required="required"
                                                 onChange={(e) => handleChange(e, 'phoneNo')}
                                                 value={data.phoneNo}
-                                                invalid={error.errors?.response?.data?.phoneNo ? true : false}
+                                                invalid={error.errors?.phoneNo ? true : false}
                                                 style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                             />
-                                            <FormFeedback>{error.errors?.response?.data?.phoneNo}</FormFeedback>
+                                            <FormFeedback>{error.errors?.phoneNo}</FormFeedback>
                                         </FormGroup>
                                         {/*gender field */}
                                         <FormGroup>
@@ -167,9 +173,8 @@ const Signup = () => {
                                                 value="male"
                                                 checked={data.gender === 'male'}
                                                 onChange={(e) => handleRoleGenderChange(e, 'gender')}
-                                                invalid={error.errors?.response?.data?.gender ? true : false}
                                             />
-                                            <label for="male">Male</label>
+                                            <label htmlFor="male">Male</label>
                                             <input
                                                 type="radio"
                                                 name="gender"
@@ -180,8 +185,8 @@ const Signup = () => {
                                                 checked={data.gender === 'female'}
                                                 onChange={(e) => handleRoleGenderChange(e, 'gender')}
                                             />
-                                            <label for="female">Female</label>
-                                            <FormFeedback>{error.errors?.response?.data?.gender}</FormFeedback>
+                                            <label htmlFor="female">Female</label>
+                                            <FormFeedback>{error.errors?.gender}</FormFeedback>
                                         </FormGroup>
                                         {/* User Name field */}
                                         <FormGroup>
@@ -193,8 +198,10 @@ const Signup = () => {
                                                 required="required"
                                                 onChange={(e) => handleChange(e, 'userName')}
                                                 value={data.userName}
+                                                invalid={error.errors?.userName ? true : false}
                                                 style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                             />
+                                            <FormFeedback>{error.errors?.userName}</FormFeedback>
                                         </FormGroup>
                                         {/* Password field */}
                                         <FormGroup>
@@ -206,10 +213,10 @@ const Signup = () => {
                                                 id="password"
                                                 onChange={(e) => handleChange(e, 'password')}
                                                 value={data.password}
-                                                invalid={error.errors?.response?.data?.password ? true : false}
+                                                invalid={error.errors?.password ? true : false}
                                                 style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
                                             />
-                                            <FormFeedback>{error.errors?.response?.data?.password}</FormFeedback>
+                                            <FormFeedback>{error.errors?.password}</FormFeedback>
                                         </FormGroup>
                                         {/* Role field */}
                                         <FormGroup>
@@ -223,14 +230,19 @@ const Signup = () => {
                                                 value="student"
                                                 checked={data.role === 'student'}
                                                 onChange={(e) => handleRoleGenderChange(e, 'role')}
-                                                invalid={error.errors?.response?.data?.role ? true : false}
                                             />
-                                            <label for="student">Student</label>
-                                            <FormFeedback>{error.errors?.response?.data?.role}</FormFeedback>
+                                            <label htmlFor="student">Student</label>
+                                            <FormFeedback>{error.errors?.role}</FormFeedback>
                                         </FormGroup>
                                         <Container className="text-center">
-                                            <Button outline color="dark">Register</Button>
-                                            <Button outline color="dark" className="ms-2" type="reset" onClick={resetData}>Reset</Button>
+                                            {clickloading ? (
+                                                <Spinner color="primary" />
+                                            ) : (
+                                                <>
+                                                    <Button outline color="dark" disabled={clickloading}>Register</Button>
+                                                    <Button outline color="dark" className="ms-2" type="reset" onClick={resetData} disabled={clickloading}>Reset</Button>
+                                                </>
+                                            )}
                                         </Container>
                                     </Form>
                                 </CardBody>
@@ -244,3 +256,4 @@ const Signup = () => {
 };
 
 export default Signup;
+
