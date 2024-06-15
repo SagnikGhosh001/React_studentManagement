@@ -33,33 +33,43 @@ import Feedback from './Pages/Feedback';
 function App() {
   return (
     <UserProvider>
-    <BrowserRouter>
-      <ToastContainer position='bottom-center' />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contactus" element={<ContactUs />}/> 
-        
-        
+      <BrowserRouter>
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contactus" element={<ContactUs />} />
 
-        <Route path='/user' element={<Privateroute />}>
-          <Route path='dashboard/:id' element={<UserDashboard/>} />
-          <Route path='admindashboard/:id' element={<AdminDashboard/>} />
-          <Route path='regcandidate' element={<RegCandidate />} />
-          <Route path='courses' element={<Courses />} />
-          <Route path='updatestudent/:id' element={<UpdateStudent />} />
-          <Route path='updateusername/:id' element={<UpdateUserName />} />
-          <Route path='updatepassword/:id' element={<UpdatePassword />} />
-          <Route path='updatecourse/:id' element={<UpdateCourse />} />
-          <Route path='addcourse' element={<AddCourse />} />
-          <Route path='features' element={<Features />}/> 
-          <Route path='feedback' element={<Feedback />}/> 
-        </Route>
-      </Routes>
 
-    </BrowserRouter>
+
+          <Route path='/user' element={<Privateroute />}>
+            <Route path='dashboard/:id' element={<UserDashboard />} />
+            <Route path='admindashboard/:id' element={<AdminDashboard />} />
+            <Route path='regcandidate' element={<RegCandidate />} />
+            <Route path='courses' element={<Courses />} />
+            <Route path='updatestudent/:id' element={<UpdateStudent />} />
+            <Route path='updateusername/:id' element={<UpdateUserName />} />
+            <Route path='updatepassword/:id' element={<UpdatePassword />} />
+            <Route path='updatecourse/:id' element={<UpdateCourse />} />
+            <Route path='addcourse' element={<AddCourse />} />
+            <Route path='features' element={<Features />} />
+            <Route path='feedback' element={<Feedback />} />
+          </Route>
+        </Routes>
+
+      </BrowserRouter>
     </UserProvider>
   );
 }

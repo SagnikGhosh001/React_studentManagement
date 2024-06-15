@@ -12,7 +12,7 @@ function CourseBody({ course, onDeleteCourse }) {
     const navigate = useNavigate();
     const [isHovered, setIsHovered] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const [deleting, setDeleting] = useState(false); 
+    const [deleting, setDeleting] = useState(false);
 
     useEffect(() => {
         setTimeout(() => {
@@ -20,43 +20,28 @@ function CourseBody({ course, onDeleteCourse }) {
         }, 1000);
     }, []);
 
-    const cardStyle = {
-        border: 'none',
-        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-        marginBottom: '20px',
-        fontFamily: 'Arial, sans-serif',
-        color: 'white',
-        backgroundColor: 'transparent',
-        backgroundSize: 'cover',
-        transition: 'transform 0.3s ease-in-out',
-        transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-    };
-
-    const buttonStyle = {
-        marginRight: '10px',
-        transition: 'background-color 0.3s ease-in-out, color 0.3s ease-in-out',
-        color: 'white',
-    };
-
     const handleDownload = (url) => {
         window.open(url, '_blank');
     };
 
     const handleDeleteCourse = () => {
         if (course.id && object.user.data.role) {
-            setDeleting(true); 
+            setDeleting(true);
             deleteCourseService(course.id, object.user.data.role)
                 .then(data => {
                     toast.success("Course deleted");
                     onDeleteCourse(course.id);
                     navigate("/user/courses");
+
                 })
                 .catch(error => {
                     console.error(error);
                     toast.error("Error deleting course");
                 })
                 .finally(() => {
-                    setDeleting(false); 
+                    setTimeout(() => {
+                        setDeleting(false);
+                    }, 300); // Adjust the delay as needed
                 });
         } else {
             toast.error("You are not an admin");
@@ -67,8 +52,16 @@ function CourseBody({ course, onDeleteCourse }) {
     return (
         <Card
             style={{
-                ...cardStyle,
-                filter: deleting ? 'blur(1px)' : 'none', 
+                border: 'none',
+                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+                marginBottom: '20px',
+                fontFamily: 'Arial, sans-serif',
+                color: 'white',
+                backgroundColor: 'transparent',
+                backgroundSize: 'cover',
+                transition: 'transform 0.3s ease-in-out',
+                transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+                filter: deleting ? 'blur(1px)' : 'none',
                 opacity: deleting ? 0.5 : 1,
             }}
             onMouseEnter={() => setIsHovered(true)}
@@ -89,7 +82,7 @@ function CourseBody({ course, onDeleteCourse }) {
                         <Button
                             color='primary'
                             outline
-                            style={buttonStyle}
+                            style={{ marginRight: '10px', transition: 'background-color 0.3s ease-in-out, color 0.3s ease-in-out', color: 'white' }}
                             onClick={(e) => {
                                 e.preventDefault();
                                 handleDownload(course.link);
@@ -103,7 +96,7 @@ function CourseBody({ course, onDeleteCourse }) {
                                     className='ms-4'
                                     color='danger'
                                     outline
-                                    style={buttonStyle}
+                                    style={{ marginRight: '10px', transition: 'background-color 0.3s ease-in-out, color 0.3s ease-in-out', color: 'white' }}
                                     onClick={handleDeleteCourse}
                                     disabled={deleting}
                                 >
