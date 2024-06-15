@@ -9,7 +9,6 @@ function ContactUs() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        
         setTimeout(() => {
             setLoading(false);
         }, 500); 
@@ -89,19 +88,31 @@ function ContactUs() {
                             <Col md="6" className="text-center">
                                 <h1 style={headingStyle}>Contact Us</h1>
                                 <p style={paragraphStyle}>Connect with us on social media:</p>
-                                <Button color="primary" className="rounded-pill mx-1">
-                                    <FontAwesomeIcon icon={faFacebook} />
-                                </Button>
-                                <Button color="primary" className="rounded-pill mx-1">
-                                    <FontAwesomeIcon icon={faInstagram} />
-                                </Button>
-                                <Button color="primary" className="rounded-pill mx-1">
-                                    <FontAwesomeIcon icon={faLinkedin} />
-                                </Button>
-                                <Button color="primary" className="rounded-pill mx-1">Gmail</Button>
-                                <Button color="primary" className="rounded-pill mx-1">
-                                    <FontAwesomeIcon icon={faGithub} />
-                                </Button>
+                                <a href="https://www.facebook.com/your-profile" target="_blank" rel="noopener noreferrer">
+                                    <Button color="primary" className="rounded-pill mx-1">
+                                        <FontAwesomeIcon icon={faFacebook} />
+                                    </Button>
+                                </a>
+                                <a href="https://www.instagram.com/your-profile" target="_blank" rel="noopener noreferrer">
+                                    <Button color="primary" className="rounded-pill mx-1">
+                                        <FontAwesomeIcon icon={faInstagram} />
+                                    </Button>
+                                </a>
+                                <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">
+                                    <Button color="primary" className="rounded-pill mx-1">
+                                        <FontAwesomeIcon icon={faLinkedin} />
+                                    </Button>
+                                </a>
+                                <a href="mailto:your-email@gmail.com" target="_blank" rel="noopener noreferrer">
+                                    <Button color="primary" className="rounded-pill mx-1">
+                                        Gmail
+                                    </Button>
+                                </a>
+                                <a href="https://www.github.com/your-profile" target="_blank" rel="noopener noreferrer">
+                                    <Button color="primary" className="rounded-pill mx-1">
+                                        <FontAwesomeIcon icon={faGithub} />
+                                    </Button>
+                                </a>
                                 <p style={contactInfoStyle}>Phone: +1234567890</p>
                                 <p style={contactInfoStyle}>Email: example@gmail.com</p>
                             </Col>

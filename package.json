@@ -39,7 +39,7 @@
     "react-toastify": "^10.0.5",
     "reactstrap": "^9.2.2",
     "sort-by": "^1.2.0",
-    "styled-components": "^6.1.8",
+    "styled-components": "^6.1.11",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

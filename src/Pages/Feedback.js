@@ -57,7 +57,7 @@ function Feedback() {
     const formRef = useRef(null);
 
     useEffect(() => {
-        // Simulate fetching user data
+        
         setTimeout(() => {
             setLoading(false);
         }, 1000);
@@ -67,10 +67,10 @@ function Feedback() {
         event.preventDefault();
         const formData = new FormData(event.target);
 
-        // Append the rating to the form data
+        
         formData.append("access_key", "ceecc8fc-15b7-465a-bc0c-29424db43497");
         formData.append("rating", rating);
-
+        
         const object = Object.fromEntries(formData);
         const json = JSON.stringify(object);
 

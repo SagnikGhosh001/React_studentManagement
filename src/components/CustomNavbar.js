@@ -82,9 +82,9 @@ function CustomNavbar() {
               {login &&(<DropdownItem tag={ReactLink} to="/user/feedback">FeedBack</DropdownItem>)}
               
               <DropdownItem divider />
-              <DropdownItem><Link to="https://www.facebook.com/sagnik.ghosh.31337" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Facebook</Link></DropdownItem>
-              <DropdownItem><Link to="https://www.instagram.com/sagnik_ghosh_01?igsh=MWk4NGdnOGl3YmxpeQ==" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Instagram</Link></DropdownItem>
-              <DropdownItem><Link to="https://www.linkedin.com/in/sagnik-ghosh-445b86303/" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Linkedin</Link></DropdownItem>
+              <DropdownItem><Link to="https://www.facebook.com/your-profile" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Facebook</Link></DropdownItem>
+              <DropdownItem><Link to="https://www.instagram.com/your-profile" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Instagram</Link></DropdownItem>
+              <DropdownItem><Link to="https://www.linkedin.com/in/your-profile" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Linkedin</Link></DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>
