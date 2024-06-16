@@ -124,7 +124,7 @@ const Login = () => {
                                                 style={inputStyle}
                                                 onFocus={() => setInputFocus(true)}
                                                 onBlur={() => setInputFocus(false)}
-                                                style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
+                                              
                                             />
                                         </FormGroup>
                                         <FormGroup>
@@ -139,7 +139,7 @@ const Login = () => {
                                                 style={inputStyle}
                                                 onFocus={() => setInputFocus(true)}
                                                 onBlur={() => setInputFocus(false)}
-                                                style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
+                                                
                                             />
                                         </FormGroup>
                                         <FormGroup>
@@ -212,6 +212,7 @@ const inputStyle = {
     ':hover': {
         borderColor: "#007bff",
     },
+     backgroundColor: 'rgba(255, 255, 255, 0.3)' 
 };
 
 export default Login;
