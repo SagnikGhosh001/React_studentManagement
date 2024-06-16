@@ -16,7 +16,7 @@ function GetAllCourses() {
         setLoading(true); 
         loadAllCourse()
             .then((data) => {
-                console.log(data);
+                //console.log(data);
                 setCourseContent(data);
             })
             .catch(error => {

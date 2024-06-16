@@ -23,7 +23,7 @@ const GetAllCandidate = () => {
             getAlluser(object.user.data.role)
             .then((data) => {
                 setUsers(data);
-                console.log(data);
+                //console.log(data);
             })
             .catch((error) => {
                 console.error(error);

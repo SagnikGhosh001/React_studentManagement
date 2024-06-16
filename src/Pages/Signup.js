@@ -62,12 +62,12 @@ const Signup = () => {
             setClickloading(false); 
             return;
         }
-        console.log(data);
+       // console.log(data);
 
         //call server api for sending data
         signUp(data).then((resp) => {
-            console.log(resp);
-            console.log("success log");
+            // console.log(resp);
+            // console.log("success log");
             setLoading(false);
             setClickloading(false); 
             toast.success("User is registered successfully!!");

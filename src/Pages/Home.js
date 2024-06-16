@@ -24,7 +24,7 @@ const Home = () => {
         }}
       >
         <div style={{ maxWidth: '600px' }}>
-          <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Welcome to our Course Download Platform</h1>
+          <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Welcome to our Student Management System</h1>
           <p style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>Explore a vast collection of courses to enhance your skills and knowledge!</p>
           <p style={{ marginBottom: '2rem' }}>Our platform offers a wide range of courses across various categories, including:</p>
           <ul style={{ marginBottom: '2rem', textAlign: 'left' }}>

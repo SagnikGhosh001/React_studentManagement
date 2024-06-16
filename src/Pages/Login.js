@@ -34,7 +34,7 @@ const Login = () => {
 
     // Effect to log whenever loginDetail changes
     useEffect(() => {
-        console.log("Login details changed:", loginDetail);
+       // console.log("Login details changed:", loginDetail);
     }, [loginDetail]);
 
     // State for input focus
@@ -58,14 +58,14 @@ const Login = () => {
 
     const submitForm = (event) => {
         event.preventDefault();
-        console.log(loginDetail);
+       // console.log(loginDetail);
         setClickloading(true); 
         loginUser(loginDetail).then((data) => {
-            console.log(data);
+           // console.log(data);
             setLoading(false);
             setClickloading(false); 
             doLogin(data, () => {
-                console.log("Log in detail is saved to local storage");
+               // console.log("Log in detail is saved to local storage");
                 userContextData.setUser({
                     data: data.user,
                     login: true,

@@ -18,7 +18,7 @@ const UserDashboard = () => {
         if (id) {
             getUser(id)
                 .then(data => {
-                    console.log("User data:", data);
+                   // console.log("User data:", data);
                     setUser({ ...data });
                 })
                 .catch(error => {
