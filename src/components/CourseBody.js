@@ -5,8 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { deleteCourseService } from '../services/CourseService';
-import CourseBodySkeleton from '../components/CourseBodySkeleton';
+import CourseBodySkeleton from './CourseBodySkeleton';
 import { Tilt } from 'react-tilt'
+import { PopconfirmProps } from 'antd';
+import { message, Popconfirm } from 'antd';
 function CourseBody({ course, onDeleteCourse }) {
     const object = useContext(userContext);
     const navigate = useNavigate();
@@ -24,13 +26,14 @@ function CourseBody({ course, onDeleteCourse }) {
         window.open(url, '_blank');
     };
 
-    const handleDeleteCourse = () => {
+    const confirm: PopconfirmProps['onConfirm'] = (e) => {
         if (course.id && object.user.data.role) {
             setDeleting(true);
             deleteCourseService(course.id, object.user.data.role)
                 .then(data => {
                     toast.success("Course deleted");
                     onDeleteCourse(course.id);
+                    message.success('Course deleted');
                     navigate("/user/courses");
 
                 })
@@ -41,16 +44,21 @@ function CourseBody({ course, onDeleteCourse }) {
                 .finally(() => {
                     setTimeout(() => {
                         setDeleting(false);
-                    }, 300); // Adjust the delay as needed
+                    }, 300);
                 });
         } else {
             toast.error("You are not an admin");
             navigate("/");
         }
+
     };
-   
+
+    const cancel: PopconfirmProps['onCancel'] = (e) => {
+        console.log(e);
+        message.error('selected no');
+    };
     return (
-        
+
         <Card
             style={{
                 border: 'none',
@@ -93,16 +101,29 @@ function CourseBody({ course, onDeleteCourse }) {
                         </Button>
                         {object.user.data.role === "admin" && (
                             <>
-                                <Button
-                                    className='ms-4'
-                                    color='danger'
-                                    outline
-                                    style={{ marginRight: '10px', transition: 'background-color 0.3s ease-in-out, color 0.3s ease-in-out', color: 'white' }}
-                                    onClick={handleDeleteCourse}
-                                    disabled={deleting}
+
+
+
+                                <Popconfirm
+                                    title="Delete the course"
+                                    description="Are you sure to delete this course?"
+                                    onConfirm={confirm}
+                                    onCancel={cancel}
+                                    okText="Yes"
+                                    cancelText="No"
                                 >
-                                    {deleting ? 'Deleting...' : 'Delete Course'}
-                                </Button>
+
+                                    <Button
+                                        className='ms-4'
+                                        color='danger'
+                                        outline
+                                        style={{ marginRight: '10px', transition: 'background-color 0.3s ease-in-out, color 0.3s ease-in-out', color: 'white' }}
+
+                                        disabled={deleting}
+                                    >
+                                        {deleting ? 'Deleting...' : 'Delete Course'}
+                                    </Button>
+                                </Popconfirm>
                                 <Link to={`/user/updatecourse/${course.id}`}>
                                     <Button color='warning' outline className='ms-5'>Update Course</Button>
                                 </Link>
@@ -112,7 +133,7 @@ function CourseBody({ course, onDeleteCourse }) {
                 </CardBody>
             )}
         </Card>
-        
+
     );
 }
 

@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CandidateBodySkeleton from './CandidateBodySkeleton';
 import { Tilt } from 'react-tilt'
+import { PopconfirmProps } from 'antd';
+import { message, Popconfirm } from 'antd';
 function GetAllCandidateBody({ user, onDeleteUser }) {
     const object = useContext(userContext);
     const [isHovered, setIsHovered] = useState(false);
@@ -29,16 +31,8 @@ function GetAllCandidateBody({ user, onDeleteUser }) {
     };
 
     function handleDeleteUser() {
-        console.log(user);
-        deleteUserService(user.id, object.user.data.role)
-            .then(data => {
-                toast.success("User deleted");
-                onDeleteUser(user.id); // Notify parent component to remove user from state
-            })
-            .catch(error => {
-                console.error(error);
-                toast.error("Error deleting user");
-            });
+        
+        
     }
     const defaultOptions = {
         reverse: false,  // reverse the tilt direction
@@ -51,6 +45,21 @@ function GetAllCandidateBody({ user, onDeleteUser }) {
         reset: true,    // If the tilt effect has to be reset on exit.
         easing: "cubic-bezier(.03,.98,.52,.99)",    // Easing on enter/exit.
     }
+    const confirm: PopconfirmProps['onConfirm'] = (e) => {
+        deleteUserService(user.id, object.user.data.role)
+            .then(data => {
+                message.success("User deleted");
+                onDeleteUser(user.id); 
+            })
+            .catch(error => {
+                console.error(error);
+                toast.error("Error deleting user");
+            });
+    }
+    const cancel: PopconfirmProps['onCancel'] = (e) => {
+        console.log(e);
+        message.error('selected no');
+    };
     return (
         <Tilt options={defaultOptions}>
             <MDBContainer className="py-3">
@@ -78,15 +87,23 @@ function GetAllCandidateBody({ user, onDeleteUser }) {
                                     alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />
                                 <MDBTypography tag="h5" className="mb-0">{user.userName}</MDBTypography>
                                 <MDBCardText className="mb-5">{user.role}</MDBCardText>
-                                <button style={{
-                                    backgroundColor: 'transparent',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                }}
-                                    onClick={handleDeleteUser}
+                                <Popconfirm
+                                    title="Delete the course"
+                                    description="Are you sure to delete this course?"
+                                    onConfirm={confirm}
+                                    onCancel={cancel}
+                                    okText="Yes"
+                                    cancelText="No"
                                 >
-                                    <DeleteIcon style={{ color: 'rgba(255, 0, 0, 0.8)' }} />
-                                </button>
+                                    <button style={{
+                                        backgroundColor: 'transparent',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                    }}
+                                    >
+                                        <DeleteIcon style={{ color: 'rgba(255, 0, 0, 0.8)' }} />
+                                    </button>
+                                </Popconfirm>
                             </MDBCol>
                             <MDBCol md="8">
                                 <MDBCardBody className="p-4">

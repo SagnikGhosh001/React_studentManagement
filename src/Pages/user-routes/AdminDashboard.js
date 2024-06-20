@@ -14,7 +14,7 @@ function AdminDashboard() {
         if (id) {
             getAdmin(id)
                 .then(data => {
-                   // console.log("Admin data:", data);
+                    console.log("Admin data:", data);
                     setAdmin(data); 
                 })
                 .catch(error => {
