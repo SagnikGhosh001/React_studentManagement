@@ -88,27 +88,27 @@ function ContactUs() {
                             <Col md="6" className="text-center">
                                 <h1 style={headingStyle}>Contact Us</h1>
                                 <p style={paragraphStyle}>Connect with us on social media:</p>
-                                <a href="https://www.facebook.com/your-profile" target="_blank" rel="noopener noreferrer">
+                                <a href="https://www.facebook.com/sagnik.ghosh.31337" target="_blank" rel="noopener noreferrer">
                                     <Button color="primary" className="rounded-pill mx-1">
                                         <FontAwesomeIcon icon={faFacebook} />
                                     </Button>
                                 </a>
-                                <a href="https://www.instagram.com/your-profile" target="_blank" rel="noopener noreferrer">
+                                <a href="https://www.instagram.com/sagnik_ghosh_01?igsh=MWk4NGdnOGl3YmxpeQ==" target="_blank" rel="noopener noreferrer">
                                     <Button color="primary" className="rounded-pill mx-1">
                                         <FontAwesomeIcon icon={faInstagram} />
                                     </Button>
                                 </a>
-                                <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">
+                                <a href="https://www.linkedin.com/in/sagnik-ghosh-445b86303/" target="_blank" rel="noopener noreferrer">
                                     <Button color="primary" className="rounded-pill mx-1">
                                         <FontAwesomeIcon icon={faLinkedin} />
                                     </Button>
                                 </a>
-                                <a href="mailto:your-email@gmail.com" target="_blank" rel="noopener noreferrer">
+                                <a href="mailto:sagnikghosh904@gmail.com" target="_blank" rel="noopener noreferrer">
                                     <Button color="primary" className="rounded-pill mx-1">
                                         Gmail
                                     </Button>
                                 </a>
-                                <a href="https://www.github.com/your-profile" target="_blank" rel="noopener noreferrer">
+                                <a href="https://github.com/SagnikGhosh001" target="_blank" rel="noopener noreferrer">
                                     <Button color="primary" className="rounded-pill mx-1">
                                         <FontAwesomeIcon icon={faGithub} />
                                     </Button>

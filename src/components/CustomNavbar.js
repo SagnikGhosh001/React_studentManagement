@@ -15,16 +15,9 @@ import {
 import { Link, NavLink as ReactLink, useNavigate } from 'react-router-dom';
 import { doLogout, getCurrentUserDetail, isLoggedIn } from '../auth';
 import userContext from "../context/userContext";
-import Stack from '@mui/material/Stack';
-import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 
-function HomeIcon(props: SvgIconProps) {
-  return (
-    <SvgIcon {...props}>
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-    </SvgIcon>
-  );
-}
+
+
 function CustomNavbar() {
   const object = useContext(userContext);
   const navigate = useNavigate();
@@ -82,9 +75,9 @@ function CustomNavbar() {
               {login &&(<DropdownItem tag={ReactLink} to="/user/feedback">FeedBack</DropdownItem>)}
               
               <DropdownItem divider />
-              <DropdownItem><Link to="https://www.facebook.com/your-profile" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Facebook</Link></DropdownItem>
-              <DropdownItem><Link to="https://www.instagram.com/your-profile" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Instagram</Link></DropdownItem>
-              <DropdownItem><Link to="https://www.linkedin.com/in/your-profile" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Linkedin</Link></DropdownItem>
+              <DropdownItem><Link to="https://www.facebook.com/sagnik.ghosh.31337" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Facebook</Link></DropdownItem>
+              <DropdownItem><Link to="https://www.instagram.com/sagnik_ghosh_01?igsh=MWk4NGdnOGl3YmxpeQ==" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Instagram</Link></DropdownItem>
+              <DropdownItem><Link to="https://www.linkedin.com/in/sagnik-ghosh-445b86303/" style={{ cursor: 'pointer', textDecoration: "none", color: "black" }}>Linkedin</Link></DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>

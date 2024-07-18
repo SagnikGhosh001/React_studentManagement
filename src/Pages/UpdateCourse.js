@@ -18,6 +18,8 @@ function UpdateCourse() {
         title: '',
         link: '',
     });
+   
+
     const [loading, setLoading] = useState(true);
     const [updating, setUpdating] = useState(false); // State to manage update operation loading
     const [loadingPage, setLoadingPage] = useState(true); // State to manage page loading
@@ -26,8 +28,11 @@ function UpdateCourse() {
         if (object.user.data.role === "admin") {
             courseById(id)
                 .then(courseData => {
+
                     setData({ ...courseData });
+                 
                     setLoading(false);
+                    
                 })
                 .catch(error => {
                     console.error(error);
@@ -42,10 +47,17 @@ function UpdateCourse() {
         }
     }, [id, object.user.data.role, navigate]);
 
+
+
+
+
     const handleChange = (event, property) => {
         setData({ ...data, [property]: event.target.value });
+
     };
 
+
+    
     const resetData = () => {
         setData({
             title: '',
@@ -79,6 +91,7 @@ function UpdateCourse() {
 
     const updateHtml = () => {
         return (
+
             <div
                 style={{
                     backgroundImage: `url(${backgroundImg})`,
@@ -92,6 +105,7 @@ function UpdateCourse() {
                     color: '#fff',
                 }}
             >
+
                 <Container>
                     <Row className="mt-4">
                         <Col sm={{ size: 6, offset: 3 }}>
