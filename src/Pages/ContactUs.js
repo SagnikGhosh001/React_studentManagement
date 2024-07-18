@@ -114,7 +114,7 @@ function ContactUs() {
                                     </Button>
                                 </a>
                                 <p style={contactInfoStyle}>Phone: +1234567890</p>
-                                <p style={contactInfoStyle}>Email: hau-hau-hau@gmail.com</p>
+                                <p style={contactInfoStyle}>Email: sagnikghosh904@gmail.com</p>
                             </Col>
                         </Row>
                     </Container>
