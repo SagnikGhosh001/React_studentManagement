@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getToken } from "../auth";
-export const BASE_URL = 'https://springboot-studentmanagement.onrender.com/';
+export const BASE_URL = 'https://studentmanagement-8qi6.onrender.com/';
 
 export const myAxios = axios.create({
     baseURL: BASE_URL
