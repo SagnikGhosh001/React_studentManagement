@@ -97,7 +97,7 @@ function CourseBody({ course, onDeleteCourse }) {
                                 handleDownload(course.link);
                             }}
                         >
-                            Download
+                            Click Here
                         </Button>
                         {object.user.data.role === "admin" && (
                             <>
